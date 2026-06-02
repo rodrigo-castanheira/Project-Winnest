@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Race Result | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header>
+                <h1>Add Race Result</h1>
+            </header>
+
+            <form>
+                <section class="race-grid">
+                    <article class="card race-card">
+                        <h3>Race Information</h3>
+
+                        <label for="organization">Organization</label>
+                        <select id="organization">
+                            <option>Select organization</option>
+                            <option>Pattaya One Loft Race</option>
+                            <option>Victoria Falls World Challenge</option>
+                            <option>Dubai One Loft Race</option>
+                            <option>Golden Algarve Race</option>
+                        </select>
+
+                        <label for="country">Country</label>
+                        <select id="country">
+                            <option>Select country</option>
+                            <option>Netherlands</option>
+                            <option>Thailand</option>
+                            <option>Portugal</option>
+                            <option>South Africa</option>
+                            <option>Dubai</option>
+                        </select>
+
+                        <label for="race-name">Race Name</label>
+                        <input id="race-name" type="text">
+
+                        <div class="race-row">
+                            <div class="race-field">
+                                <label for="distance">Distance (km)</label>
+                                <input id="distance" type="number">
+                            </div>
+
+                            <div class="race-field">
+                                <label for="race-date">Race Date</label>
+                                <input id="race-date" type="date">
+                            </div>
+                        </div>
+
+                        <label for="race-note">Note (Optional)</label>
+                        <input id="race-note" type="text" placeholder="Add notes about this race">
+                    </article>
+
+                    <article class="card result-card">
+                        <h3>Record Result</h3>
+
+                        <label for="youngster">Youngster</label>
+                        <input id="youngster" type="text" placeholder="Ring number">
+
+                        <label for="result">Result</label>
+                        <input id="result" type="text">
+
+                        <div class="actions race-inner-actions">
+                            <button type="button" class="cancel">Cancel</button>
+                            <button type="submit" class="save">
+                                <img src="images/dashboard-icon/add.png" alt="">
+                                <span>Save</span>
+                            </button>
+                        </div>
+                    </article>
+                </section>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

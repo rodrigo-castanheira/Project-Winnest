@@ -4,124 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Pair | Winnest</title>
-    <link rel="stylesheet" href="add-new-pair.css">
+    <link rel="stylesheet" href="winnest-style.css">
 </head>
+
 <body>
     <div class="layout">
         <aside class="sidebar">
             <div class="logo">
-                <img src="assets/logo/winnest-logo.svg" alt="Winnest logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
             </div>
             <nav class="menu">
-                <a href="#" class="menu-item">
-                    <img src="assets/icons/dashboard.svg" alt="">
+                <a href="dashboard.html" class="menu-item">
+                    <img src="images/menu-icon/dashboard.png" alt="Dashboard">
                     <span>Dashboard</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/pair-management.svg" alt="">
+                    <img src="images/menu-icon/pair.png" alt="Pair Management">
                     <span>Pair Management</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/nest-management.svg" alt="">
+                    <img src="images/menu-icon/nest.png" alt="Nest Management">
                     <span>Nest Management</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/youngsters.svg" alt="">
+                    <img src="images/menu-icon/youngster.png" alt="Youngsters">
                     <span>Youngsters</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/health-records.svg" alt="">
+                    <img src="images/menu-icon/health.png" alt="Health Records">
                     <span>Health Records</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/race-results.svg" alt="">
+                    <img src="images/menu-icon/race.png" alt="Race Results">
                     <span>Race Results</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/analytics.svg" alt="">
+                    <img src="images/menu-icon/analytics.png" alt="Analytics">
                     <span>Analytics</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/reports.svg" alt="">
+                    <img src="images/menu-icon/report.png" alt="Reports">
                     <span>Reports</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/calendar.svg" alt="">
+                    <img src="images/menu-icon/calendar.png" alt="Calendar">
                     <span>Calendar</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/loft-settings.svg" alt="">
+                    <img src="images/menu-icon/setting.png" alt="Loft Settings">
                     <span>Loft Settings</span>
                 </a>
                 <a href="#" class="menu-item">
-                    <img src="assets/icons/users-staff.svg" alt="">
+                    <img src="images/menu-icon/users.png" alt="Users & Staff">
                     <span>Users & Staff</span>
                 </a>
             </nav>
+
             <div class="loft-card">
-                <img src="assets/images/loft-photo.jpg" alt="Winnest loft">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
                 <h3>WINNEST LOFT 🇳🇱</h3>
                 <p>Ermerveen 17</p>
                 <p>7814 VB Emmen</p>
                 <p>The Netherlands</p>
             </div>
-            <div class="stats-card">
-                <div><span>Total Pairs</span><strong>42</strong></div>
-                <div><span>Active Nests</span><strong>21</strong></div>
-                <div><span>Total Youngsters</span><strong>312</strong></div>
-                <div><span>Races This Season</span><strong>3</strong></div>
-                <div><span>Prize Winners</span><strong>23</strong></div>
-            </div>
         </aside>
+
         <main class="content">
             <header>
-                <h1>Add New Pair</h1>
+                <h2>Add New Pair</h2>
             </header>
             <form>
                 <section class="parents">
                     <article class="card">
-                        <h2>Father</h2>
+                        <h3>Father</h3>
                         <div class="card-content">
-                            <img src="assets/images/father-pigeon.png" alt="Father pigeon" class="pigeon-image">
+                            <img src="images/pigeons/pigeon1.png" alt="Father pigeon" class="pigeon-image">
                             <div class="fields">
                                 <label for="father-ring">Ring Number</label>
                                 <input id="father-ring" type="text">
                                 <label for="father-name">Name (Optional)</label>
                                 <input id="father-name" type="text">
-                                <label for="father-bloodline">Blood line</label>
-                                <select id="father-bloodline">
-                                    <option>Select bloodline</option>
+                                <label for="father-bloodline">Bloodline</label>
+                                <input id="father-bloodline" type="text">
                                 </select>
                                 <label for="father-color">Color</label>
                                 <select id="father-color">
                                     <option>Select color</option>
+                                    <option>Blue (Blauw)</option>
+                                    <option>Ash-Red (Vaal)</option>
+                                    <option>Black (Donker)</option>
+                                    <option>Recessive Red (Rood)</option>
+                                    <option>Light Check (Lichtkras)</option>
+                                    <option>Dark Check (Donkerkras)</option>
                                 </select>
                             </div>
                         </div>
                     </article>
+
                     <article class="card">
-                        <h2>Mother</h2>
+                        <h3>Mother</h3>
                         <div class="card-content">
-                            <img src="assets/images/mother-pigeon.png" alt="Mother pigeon" class="pigeon-image">
+                            <img src="images/pigeons/pigeon2.png" alt="Mother pigeon" class="pigeon-image">
                             <div class="fields">
                                 <label for="mother-ring">Ring Number</label>
                                 <input id="mother-ring" type="text">
                                 <label for="mother-name">Name (Optional)</label>
                                 <input id="mother-name" type="text">
-                                <label for="mother-bloodline">Blood line</label>
-                                <select id="mother-bloodline">
-                                    <option>Select bloodline</option>
+                                <label for="mother-bloodline">Bloodline</label>
+                                <input id="mother-bloodline" type="text">
                                 </select>
                                 <label for="mother-color">Color</label>
                                 <select id="mother-color">
                                     <option>Select color</option>
+                                    <option>Blue (Blauw)</option>
+                                    <option>Ash-Red (Vaal)</option>
+                                    <option>Black (Donker)</option>
+                                    <option>Recessive Red (Rood)</option>
+                                    <option>Light Check (Lichtkras)</option>
+                                    <option>Dark Check (Donkerkras)</option>
                                 </select>
                             </div>
                         </div>
                     </article>
                 </section>
+                
                 <section class="pair-info">
-                    <h2>Pair Information</h2>
+                    <h3>Pair Information</h3>
                     <div class="pair-row">
                         <div class="pair-field date-field">
                             <label for="paired-date">Paired Date</label>
@@ -130,19 +138,25 @@
                         <div class="pair-field loft-field">
                             <label for="loft">Loft</label>
                             <select id="loft">
-                                <option>Select loft</option>
+                                <option>Select Loft</option>
+                                <option>Boven Huis</option>
+                                <option>Boven Garage</option>
+                                <option>Garage Beneden 1</option>
+                                <option>Garage Beneden 2</option>
+                                <option>Boven Garage</option>
+                                <option>Boven Garage Nieuw</option>
                             </select>
                         </div>
                         <div class="pair-field notes-field">
                             <label for="notes">Notes (Optional)</label>
-                            <input id="notes" type="text">
+                            <input id="notes" type="text"> 
                         </div>
                     </div>
                 </section>
                 <div class="actions">
                     <button type="button" class="cancel">Cancel</button>
                     <button type="submit" class="save">
-                        <img src="assets/icons/add.svg" alt="">
+                        <img src="images/dashboard-icon/add.png" alt="">
                         <span>Save</span>
                     </button>
                 </div>
