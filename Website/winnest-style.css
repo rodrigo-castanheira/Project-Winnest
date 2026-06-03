@@ -2926,3 +2926,368 @@ button {
         flex-direction: column;
     }
 }
+
+/* YOUNGSTER PROFILE */
+
+.youngster-profile-content {
+    padding: 0 13px 20px;
+}
+
+.youngster-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 134px;
+    padding: 0 9px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.youngster-profile-header div {
+    display: flex;
+    gap: 12px;
+}
+
+.youngster-profile-header button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    width: auto;
+    height: 32px;
+    padding: 0 18px;
+    background-color: #ffffff;
+    font-size: 11px;
+}
+
+.youngster-profile-header img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.youngster-edit-button {
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+}
+
+.youngster-green-button {
+    color: #3e993e;
+    border: 1px solid #3e993e;
+}
+
+.youngster-top-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 398px) minmax(0, 337px) minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 34px;
+}
+
+.youngster-main-card,
+.performance-snapshot-card,
+.parents-info-card,
+.youngster-panel {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.youngster-main-card {
+    min-height: 252px;
+    padding: 18px 26px;
+}
+
+.youngster-title-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.youngster-title-row h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.youngster-title-row span {
+    padding: 7px 12px;
+    color: #3e993e;
+    border-radius: 4px;
+    background-color: #ecffec;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.youngster-info-row {
+    display: grid;
+    grid-template-columns: 145px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.youngster-info-row img {
+    width: 140px;
+    height: 120px;
+    object-fit: contain;
+}
+
+.youngster-info-list p {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    margin: 0 0 12px;
+    font-size: 11px;
+}
+
+.performance-snapshot-card {
+    min-height: 252px;
+    padding: 14px 18px;
+}
+
+.performance-snapshot-card h2,
+.parents-info-card h2,
+.youngster-panel h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.snapshot-grid div {
+    min-height: 57px;
+    padding: 10px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.snapshot-grid h4,
+.snapshot-score h4 {
+    margin: 0 0 8px;
+    font-size: 10px;
+}
+
+.snapshot-grid strong {
+    font-size: 18px;
+}
+
+.snapshot-score {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 85px 55px;
+    align-items: center;
+    margin-top: 12px;
+    padding: 10px 14px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+}
+
+.snapshot-score strong {
+    font-size: 18px;
+}
+
+.snapshot-score span {
+    display: inline-block;
+    width: 72px;
+    padding: 5px 0;
+    color: #3e993e;
+    border-radius: 4px;
+    background-color: #ecffec;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.small-score-circle {
+    width: 42px;
+    height: 42px;
+    border: 5px solid #3e993e;
+    border-top-color: #dff5df;
+    border-radius: 50%;
+}
+
+.parents-info-card {
+    min-height: 252px;
+    padding: 15px 18px;
+}
+
+.parents-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.parents-title button,
+.youngster-panel-title button {
+    width: auto;
+    height: 28px;
+    padding: 0 14px;
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+    background-color: #ffffff;
+    font-size: 10px;
+}
+
+.parent-pair-id {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 9px 16px;
+    border: 1px solid #e5f2fd;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.parents-profile-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 70px 25px 70px minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.parents-profile-row img {
+    width: 70px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.parents-profile-row b {
+    color: #168cff;
+    font-size: 26px;
+    text-align: center;
+}
+
+.parents-profile-row h3 {
+    margin: 0 0 16px;
+    color: #168cff;
+    font-size: 13px;
+}
+
+.parents-profile-row strong {
+    font-size: 13px;
+}
+
+.parents-profile-row p,
+.parents-profile-row small {
+    display: block;
+    margin: 12px 0 0;
+    font-size: 10px;
+}
+
+.youngster-bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 486px) minmax(0, 250px) minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.race-records-card {
+    grid-row: span 2;
+    min-height: 524px;
+}
+
+.timeline-card {
+    min-height: 354px;
+}
+
+.health-records-card {
+    min-height: 354px;
+}
+
+.quick-actions-profile {
+    grid-column: 2 / 4;
+    min-height: 138px;
+}
+
+.youngster-panel {
+    padding: 16px 14px;
+}
+
+.youngster-panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.youngster-panel table {
+    width: 100%;
+    margin-top: 28px;
+    border-collapse: collapse;
+}
+
+.youngster-panel th {
+    text-align: left;
+    font-size: 8px;
+}
+
+.youngster-timeline-item {
+    margin-top: 22px;
+}
+
+.youngster-timeline-item small {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 9px;
+}
+
+.youngster-timeline-item strong {
+    font-size: 11px;
+}
+
+.quick-actions-profile div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.quick-actions-profile button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    height: 46px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 11px;
+}
+
+.quick-actions-profile img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+@media (max-width: 1100px) {
+    .youngster-profile-header,
+    .youngster-profile-header div {
+        align-items: flex-start;
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+        padding: 20px 9px;
+    }
+
+    .youngster-top-grid,
+    .youngster-bottom-grid,
+    .quick-actions-profile div {
+        grid-template-columns: 1fr;
+    }
+
+    .race-records-card,
+    .quick-actions-profile {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .parents-profile-row,
+    .youngster-info-row {
+        grid-template-columns: 1fr;
+    }
+}

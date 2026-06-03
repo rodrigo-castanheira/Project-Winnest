@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youngster Profile | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="pair-management.html" class="menu-item"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="#" class="menu-item active"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content youngster-profile-content">
+            <section class="youngster-profile-header">
+                <h1>Youngster Profile</h1>
+                <div>
+                    <button type="button" class="youngster-edit-button"><img src="images/dashboard-icon/edit.png" alt="">Edit Youngster</button>
+                    <button type="button" class="youngster-green-button"><img src="images/dashboard-icon/add.png" alt="">Record Race Result</button>
+                </div>
+            </section>
+
+            <section class="youngster-top-grid">
+                <article class="youngster-main-card">
+                    <div class="youngster-title-row">
+                        <h2>NL 25-1551001 ♂</h2>
+                        <span>Raced</span>
+                    </div>
+                    <div class="youngster-info-row">
+                        <img src="images/pigeons/youngster-pigeon.png" alt="Youngster pigeon">
+                        <div class="youngster-info-list">
+                            <p><strong>Name:</strong> Hermes</p>
+                            <p><strong>Gender:</strong> Male</p>
+                            <p><strong>Color:</strong> Blue</p>
+                            <p><strong>Hatched Date:</strong> 1 January 2025</p>
+                            <p><strong>Bloodline:</strong> Manu</p>
+                            <p><strong>Status:</strong> Raced</p>
+                            <p><strong>Current Location:</strong> Loft</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="performance-snapshot-card">
+                    <h2>Performance Snapshot</h2>
+                    <div class="snapshot-grid">
+                        <div><h4>Races</h4><strong>8</strong></div>
+                        <div><h4>Top 10 Finises</h4><strong>8</strong></div>
+                        <div><h4>Win %</h4><strong>100%</strong></div>
+                        <div><h4>Avg. Position</h4><strong>12.4</strong></div>
+                        <div><h4>Total Points</h4><strong>880</strong></div>
+                    </div>
+                    <div class="snapshot-score">
+                        <div>
+                            <h4>Performance Score</h4>
+                            <strong>88.5 / 100</strong>
+                        </div>
+                        <span>Excellent</span>
+                        <div class="small-score-circle"></div>
+                    </div>
+                </article>
+
+                <article class="parents-info-card">
+                    <div class="parents-title">
+                        <h2>Parents Information</h2>
+                        <button type="button">View Pair Details</button>
+                    </div>
+                    <span class="parent-pair-id">P-2026001</span>
+                    <div class="parents-profile-row">
+                        <div>
+                            <h3>Male ♂</h3>
+                            <strong>NL24-2102319</strong>
+                            <p>Blue</p>
+                            <p>C & G Koopman</p>
+                            <small>Golden Wings</small>
+                        </div>
+                        <img src="images/pigeons/male-pigeon.png" alt="Male parent">
+                        <b>×</b>
+                        <img src="images/pigeons/female-pigeon.png" alt="Female parent">
+                        <div>
+                            <h3>Female ♀</h3>
+                            <strong>NL22-8072203</strong>
+                            <p>Blue</p>
+                            <p>C & G Koopman</p>
+                            <small>Diamond Wings</small>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="youngster-bottom-grid">
+                <article class="youngster-panel race-records-card">
+                    <div class="youngster-panel-title">
+                        <h2>Race Records</h2>
+                        <button type="button">View All Races</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Race</th>
+                                <th>Distance</th>
+                                <th>Position</th>
+                                <th>Points</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </article>
+
+                <article class="youngster-panel timeline-card">
+                    <h2>Timeline</h2>
+                    <div class="youngster-timeline-item"><small>1 May 2025</small><strong>Raced - Club Race #2 (50 km)</strong></div>
+                    <div class="youngster-timeline-item"><small>1 April 2025</small><strong>Raced - Club Race #1 (30 km)</strong></div>
+                    <div class="youngster-timeline-item"><small>1 February 2025</small><strong>Health treatment</strong></div>
+                    <div class="youngster-timeline-item"><small>1 February 2025</small><strong>Move to youngster loft - Vlieg Hok 1</strong></div>
+                    <div class="youngster-timeline-item"><small>15 January 2025</small><strong>Ringed</strong></div>
+                    <div class="youngster-timeline-item"><small>1 January 2025</small><strong>Hatched</strong></div>
+                </article>
+
+                <article class="youngster-panel health-records-card">
+                    <div class="youngster-panel-title">
+                        <h2>Health Records</h2>
+                        <button type="button">View All</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>By</th>
+                                <th>Next Due</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </article>
+
+                <article class="youngster-panel quick-actions-profile">
+                    <h2>Quick Actions</h2>
+                    <div>
+                        <button type="button"><img src="images/dashboard-icon/add.png" alt="">Record Race Result</button>
+                        <button type="button"><img src="images/dashboard-icon/edit.png" alt="">Update Details</button>
+                        <button type="button"><img src="images/dashboard-icon/add.png" alt="">Add Health Record</button>
+                        <button type="button"><img src="images/dashboard-icon/export.png" alt="">Export</button>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
