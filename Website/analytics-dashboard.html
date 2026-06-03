@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item active"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content analytics-content">
+            <section class="analytics-header">
+                <h1>Analytics Dashboard</h1>
+                <div class="analytics-actions">
+                    <select>
+                        <option>Season 2025</option>
+                    </select>
+                    <button type="button" class="export-report">
+                        <img src="images/dashboard-icon/add.png" alt="">
+                        <span>Export Report</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="analytics-kpi-grid">
+                <article class="analytics-kpi-card">
+                    <img src="images/dashboard-icon/hatch-circle.png" alt="">
+                    <div>
+                        <h4>Average Hatch Rate</h4>
+                        <strong>78.6%</strong>
+                        <p>▲ 4.8% vs last season</p>
+                    </div>
+                </article>
+
+                <article class="analytics-kpi-card">
+                    <img src="images/dashboard-icon/survival-circle.png" alt="">
+                    <div>
+                        <h4>AVG. Survival Rate</h4>
+                        <strong>85.4%</strong>
+                        <p>▲ 3.2% vs last season</p>
+                    </div>
+                </article>
+
+                <article class="analytics-kpi-card">
+                    <img src="images/dashboard-icon/youngster-circle.png" alt="">
+                    <div>
+                        <h4>Youngsters Raced</h4>
+                        <strong>300</strong>
+                        <p>▲ 10% vs last season</p>
+                    </div>
+                </article>
+
+                <article class="analytics-kpi-card">
+                    <img src="images/dashboard-icon/prize-circle.png" alt="">
+                    <div>
+                        <h4>Prize Winners</h4>
+                        <strong>23</strong>
+                        <p>▲ 27.8% vs last season</p>
+                    </div>
+                </article>
+
+                <article class="analytics-kpi-card">
+                    <img src="images/dashboard-icon/race-circle.png" alt="">
+                    <div>
+                        <h4>Top 10 Finishes</h4>
+                        <strong>31</strong>
+                        <p>▲ 19.2% vs last season</p>
+                    </div>
+                </article>
+
+                <article class="analytics-score-card">
+                    <h4>Loft Performance Score</h4>
+                    <strong>88.7 <span>/ 100</span></strong>
+                    <p>Excellent</p>
+                </article>
+            </section>
+
+            <section class="analytics-panel top-pairs-panel">
+                <div class="analytics-section-title">
+                    <h2>Top Performing Breeding Pairs</h2>
+                    <button type="button">View All Pairs</button>
+                </div>
+
+                <table class="pairs-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Pair ID</th>
+                            <th>Pair (Male x Female)</th>
+                            <th>Hatch Rate</th>
+                            <th>Survival Rate</th>
+                            <th>Prize Winners</th>
+                            <th>Performance Score</th>
+                            <th>Consistency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank gold">1</span></td>
+                            <td>P-2025-01</td>
+                            <td>NL24-2102319 <span class="pair-x">x</span> NL22-8072203</td>
+                            <td><strong>92%</strong></td>
+                            <td><strong>90%</strong></td>
+                            <td><strong>7</strong></td>
+                            <td><strong>92.4</strong></td>
+                            <td class="excellent">Excellent</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank silver">2</span></td>
+                            <td>P-2025-02</td>
+                            <td>NL24-8078042 <span class="pair-x">x</span> NL24-8077834</td>
+                            <td><strong>90%</strong></td>
+                            <td><strong>88%</strong></td>
+                            <td><strong>5</strong></td>
+                            <td><strong>89.1</strong></td>
+                            <td class="excellent">Very Good</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank bronze">3</span></td>
+                            <td>P-2025-03</td>
+                            <td>NL24-1551416 <span class="pair-x">x</span> NL23-9590755</td>
+                            <td><strong>88%</strong></td>
+                            <td><strong>86%</strong></td>
+                            <td><strong>4</strong></td>
+                            <td><strong>86.7</strong></td>
+                            <td class="excellent">Very Good</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>P-2025-04</td>
+                            <td>NL24-8078038 <span class="pair-x">x</span> NL21-1504510</td>
+                            <td><strong>85%</strong></td>
+                            <td><strong>82%</strong></td>
+                            <td><strong>4</strong></td>
+                            <td><strong>83.2</strong></td>
+                            <td class="excellent">Good</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td>P-2025-05</td>
+                            <td>NL22-8072229 <span class="pair-x">x</span> NL24-8078056</td>
+                            <td><strong>83%</strong></td>
+                            <td><strong>81%</strong></td>
+                            <td><strong>3</strong></td>
+                            <td><strong>81.4</strong></td>
+                            <td class="excellent">Good</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="analytics-note">Performance score is calculate based on hatch success, survival rate, race results, prize winners and consistency.</p>
+            </section>
+
+            <section class="analytics-bottom-grid">
+                <article class="analytics-panel score-distribution">
+                    <div class="analytics-section-title">
+                        <h2>Performance Score Distribution</h2>
+                        <select>
+                            <option>This Season</option>
+                        </select>
+                    </div>
+
+                    <div class="distribution-content">
+                        <div class="donut-chart">
+                            <div class="donut-center">
+                                <strong>42</strong>
+                                <span>pairs</span>
+                            </div>
+                        </div>
+
+                        <div class="distribution-list">
+                            <div><span class="legend excellent-color"></span><p><strong>Excellent (81-100)</strong><br>15 pairs (35.71%)</p></div>
+                            <div><span class="legend very-good-color"></span><p><strong>Very Good (61-80)</strong><br>18 pairs (42.86%)</p></div>
+                            <div><span class="legend good-color"></span><p><strong>Good(41-60)</strong><br>5 pairs (11.90%)</p></div>
+                            <div><span class="legend fair-color"></span><p><strong>Fair (21-40)</strong><br>2 pairs (4.76%)</p></div>
+                            <div><span class="legend poor-color"></span><p><strong>Need Improvement (0-20)</strong><br>2 pairs (4.76%)</p></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="analytics-panel prize-winners-panel">
+                    <div class="analytics-section-title">
+                        <h2>Top 5 by Prize Winners</h2>
+                        <select>
+                            <option>This Season</option>
+                        </select>
+                    </div>
+
+                    <table class="prize-table">
+                        <tbody>
+                            <tr>
+                                <td><strong>1</strong></td>
+                                <td>P-2025-01</td>
+                                <td>NL24-2102319 <span class="pair-x">x</span> NL22-8072203</td>
+                                <td><strong>7</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>2</strong></td>
+                                <td>P-2025-02</td>
+                                <td>NL24-8078042 <span class="pair-x">x</span> NL24-8077834</td>
+                                <td><strong>5</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>3</strong></td>
+                                <td>P-2025-03</td>
+                                <td>NL24-1551416 <span class="pair-x">x</span> NL23-9590755</td>
+                                <td><strong>4</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>4</strong></td>
+                                <td>P-2025-04</td>
+                                <td>NL24-8078038 <span class="pair-x">x</span> NL21-1504510</td>
+                                <td><strong>4</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>5</strong></td>
+                                <td>P-2025-05</td>
+                                <td>NL22-8072229 <span class="pair-x">x</span> NL24-8078056</td>
+                                <td><strong>3</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
