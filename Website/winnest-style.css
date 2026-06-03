@@ -1470,3 +1470,618 @@ button {
         overflow-x: auto;
     }
 }
+
+/* PAIR MANAGEMENT */
+
+.pair-management-content {
+    padding: 0 13px 20px;
+}
+
+.pair-management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 134px;
+    padding-left: 9px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.pair-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pair-header-actions select {
+    width: 128px;
+    height: 30px;
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+.pair-search {
+    display: flex;
+    align-items: center;
+    width: 132px;
+    height: 30px;
+    padding: 0 8px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+}
+
+.pair-search input {
+    height: 100%;
+    margin-bottom: 0;
+    padding: 0 6px;
+    border: 0;
+    font-size: 11px;
+}
+
+.pair-search img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.filter-button,
+.add-pair-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    height: 30px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.filter-button {
+    width: 86px;
+    color: #183857;
+    border: 1px solid #e5f2fd;
+    background-color: #ffffff;
+}
+
+.add-pair-button {
+    width: 127px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+}
+
+.filter-button img,
+.add-pair-button img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.pair-management-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 628px) minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.pair-left-column {
+    min-width: 0;
+}
+
+.pair-filter-card,
+.all-pairs-card,
+.pair-profile-card {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.pair-filter-card {
+    min-height: 151px;
+    padding: 13px 14px;
+}
+
+.pair-filter-card h2,
+.all-pairs-card h2,
+.pair-profile-card h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.pair-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 17px;
+}
+
+.pair-filter-field label {
+    margin-bottom: 6px;
+    font-size: 10px;
+}
+
+.pair-filter-field select {
+    height: 30px;
+    margin-bottom: 0;
+    font-size: 10px;
+}
+
+.pair-filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.clear-filter,
+.apply-filter {
+    width: 86px;
+    height: 30px;
+    font-size: 10px;
+}
+
+.clear-filter {
+    color: #183857;
+    border: 1px solid #e5f2fd;
+    background-color: #ffffff;
+}
+
+.apply-filter {
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+}
+
+.all-pairs-card {
+    min-height: 632px;
+    margin-top: 16px;
+    padding: 0 6px 16px;
+}
+
+.all-pairs-card h2 {
+    margin: 18px 0 12px 0;
+    padding-left: 0;
+}
+
+.pairs-list-table {
+    width: 100%;
+}
+
+.pairs-list-header,
+.pairs-list-row {
+    display: grid;
+    grid-template-columns: 24px 88px minmax(0, 185px) 76px 86px 92px 62px 40px;
+    align-items: center;
+    column-gap: 4px;
+}
+
+.pairs-list-header {
+    height: 38px;
+    padding: 0 8px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px 6px 0 0;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.pairs-list-row {
+    min-height: 64px;
+    margin-top: 6px;
+    padding: 0 8px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    font-size: 10px;
+}
+
+.pairs-list-row input {
+    width: 11px;
+    height: 11px;
+    margin: 0;
+}
+
+.pairs-list-row b {
+    margin: 0 5px;
+    color: #ff0000;
+    font-weight: 400;
+}
+
+.pairs-list-row strong {
+    justify-self: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #3e993e;
+    background-color: #ecffec;
+}
+
+.inactive-row strong {
+    color: #183857;
+    background-color: #eeeeee;
+}
+
+.pairs-list-row em {
+    color: #3e993e;
+    font-style: normal;
+}
+
+.inactive-row em {
+    color: #777777;
+}
+
+.dots {
+    font-size: 22px;
+    text-align: center;
+}
+
+.pair-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 42px;
+    padding: 0 8px;
+}
+
+.pair-pagination p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.pair-pagination div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pair-pagination button {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    background-color: #ffffff;
+    font-size: 12px;
+}
+
+.pair-pagination .active-page {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    color: #168cff;
+    background-color: #f7fbff;
+}
+
+.pair-profile-card {
+    min-height: 826px;
+    padding: 13px 8px 8px;
+}
+
+.pair-profile-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pair-profile-title div {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-pair,
+.close-pair {
+    width: auto;
+    height: 24px;
+    padding: 0 12px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-size: 10px;
+}
+
+.edit-pair {
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+}
+
+.close-pair {
+    color: #ff0000;
+    border: 1px solid #e5f2fd;
+}
+
+.pair-profile-tags {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.pair-profile-tags span,
+.pair-profile-tags strong {
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.pair-profile-tags span {
+    border: 1px solid #e5f2fd;
+}
+
+.pair-profile-tags strong {
+    color: #3e993e;
+    background-color: #ecffec;
+}
+
+.pair-birds {
+    display: grid;
+    grid-template-columns: 120px 90px 30px 90px 120px;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.bird-info h4 {
+    margin: 0 0 8px;
+    color: #168cff;
+    font-size: 12px;
+}
+
+.bird-info h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.bird-info p,
+.bird-info small {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 10px;
+}
+
+.bird-image {
+    width: 88px;
+    height: 78px;
+    object-fit: contain;
+}
+
+.large-x {
+    color: #168cff;
+    font-size: 26px;
+    text-align: center;
+}
+
+.pair-profile-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.pair-profile-kpis div {
+    min-height: 95px;
+    padding: 18px 14px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+}
+
+.pair-profile-kpis h4 {
+    margin: 0 0 10px;
+    font-size: 10px;
+}
+
+.pair-profile-kpis strong {
+    display: block;
+    font-size: 24px;
+}
+
+.pair-profile-kpis span {
+    font-size: 13px;
+}
+
+.pair-profile-kpis p {
+    margin: 8px 0 0;
+    font-size: 9px;
+}
+
+.pair-profile-kpis div:last-child p {
+    width: 74px;
+    padding: 4px 0;
+    border-radius: 4px;
+    color: #3e993e;
+    text-align: center;
+    background-color: #ecffec;
+}
+
+.pair-tabs {
+    display: flex;
+    gap: 30px;
+    margin-top: 22px;
+    padding-left: 6px;
+}
+
+.pair-tabs a {
+    color: #183857;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.pair-tabs .active-tab {
+    font-weight: 800;
+}
+
+.pair-overview-grid {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 27px;
+}
+
+.pair-statistics,
+.performance-trend,
+.recent-nests-card {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.pair-statistics {
+    min-height: 228px;
+    padding: 14px 12px;
+}
+
+.pair-statistics h3,
+.performance-trend h3,
+.recent-nests-card h3 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.pair-statistics div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.pair-statistics span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+}
+
+.pair-statistics img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.pair-statistics strong {
+    font-size: 12px;
+}
+
+.performance-trend {
+    min-height: 228px;
+    padding: 14px 14px 8px;
+}
+
+.trend-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.trend-title select {
+    width: 90px;
+    height: 24px;
+    margin-bottom: 0;
+    font-size: 8px;
+}
+
+.trend-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 14px;
+    font-size: 10px;
+}
+
+.trend-legend span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trend-legend b {
+    width: 8px;
+    height: 8px;
+    background-color: #183857;
+}
+
+.trend-legend span:last-child b {
+    background-color: #168cff;
+}
+
+.trend-chart img {
+    width: 100%;
+    height: 145px;
+    margin-top: 8px;
+    object-fit: contain;
+}
+
+.recent-nests-card {
+    margin-top: 12px;
+    padding: 13px 8px 8px;
+}
+
+.recent-nests-card table {
+    width: 100%;
+    margin-top: 12px;
+    border-collapse: collapse;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.recent-nests-card th {
+    height: 28px;
+    text-align: left;
+    font-size: 8px;
+}
+
+.recent-nests-card td {
+    height: 29px;
+    font-size: 10px;
+}
+
+.recent-nests-card th,
+.recent-nests-card td {
+    padding: 0 8px;
+}
+
+.recent-nests-card td span {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    color: #3e993e;
+    background-color: #ecffec;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.recent-nests-card button {
+    display: block;
+    width: 180px;
+    height: 26px;
+    margin: 14px auto 0;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 10px;
+}
+
+@media (max-width: 1100px) {
+    .pair-management-header,
+    .pair-header-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        gap: 12px;
+        padding: 20px 0;
+    }
+
+    .pair-management-grid,
+    .pair-filter-grid,
+    .pair-profile-kpis,
+    .pair-overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pair-birds {
+        grid-template-columns: 1fr;
+    }
+
+    .pairs-list-table {
+        overflow-x: auto;
+    }
+
+    .pairs-list-header,
+    .pairs-list-row {
+        min-width: 820px;
+    }
+}

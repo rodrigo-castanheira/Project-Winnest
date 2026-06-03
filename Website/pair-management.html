@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pair Management | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="pair-management.html" class="menu-item active"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content pair-management-content">
+            <section class="pair-management-header">
+                <h1>Pair Management</h1>
+                <div class="pair-header-actions">
+                    <select>
+                        <option>Season 2026</option>
+                    </select>
+                    <div class="pair-search">
+                        <input type="text" placeholder="Search pairs...">
+                        <img src="images/dashboard-icon/search.png" alt="search">
+                    </div>
+                    <button type="button" class="filter-button">
+                        <img src="images/dashboard-icon/filter.png" alt="filter">
+                        <span>Filters</span>
+                    </button>
+                    <a href="add-new-pair.html" class="add-pair-button">
+                        <img src="images/dashboard-icon/add.png" alt="add">
+                        <span>Add New Pair</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="pair-management-grid">
+                <div class="pair-left-column">
+                    <article class="pair-filter-card">
+                        <h2>Filter Pairs</h2>
+                        <div class="pair-filter-grid">
+                            <div class="pair-filter-field">
+                                <label>Status</label>
+                                <select>
+                                    <option>All Status</option>
+                                </select>
+                            </div>
+                            <div class="pair-filter-field">
+                                <label>Bloodline</label>
+                                <select>
+                                    <option>All Bloodline</option>
+                                </select>
+                            </div>
+                            <div class="pair-filter-field">
+                                <label>Gender</label>
+                                <select>
+                                    <option>All</option>
+                                </select>
+                            </div>
+                            <div class="pair-filter-field">
+                                <label>Performance</label>
+                                <select>
+                                    <option>All</option>
+                                </select>
+                            </div>
+                            <div class="pair-filter-field">
+                                <label>Active Nests</label>
+                                <select>
+                                    <option>All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="pair-filter-actions">
+                            <button type="button" class="clear-filter">Clear Filters</button>
+                            <button type="button" class="apply-filter">Apply Filters</button>
+                        </div>
+                    </article>
+
+                    <article class="all-pairs-card">
+                        <h2>All Breeding Pairs (42)</h2>
+                        <div class="pairs-list-table">
+                            <div class="pairs-list-header">
+                                <span></span>
+                                <span>Pair ID</span>
+                                <span>Pair (Male x Female)</span>
+                                <span>Hatch Rate</span>
+                                <span>Survival Rate</span>
+                                <span>Performance Score</span>
+                                <span>Status</span>
+                                <span>Actions</span>
+                            </div>
+
+                            <div class="pairs-list-row">
+                                <input type="checkbox">
+                                <span>P-2025-001</span>
+                                <span>NL24-2102319 <b>x</b> NL22-8072203</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Active</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row">
+                                <input type="checkbox">
+                                <span>P-2025-002</span>
+                                <span>NL24-8078042 <b>x</b> NL24-8077834</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Active</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row">
+                                <input type="checkbox">
+                                <span>P-2025-003</span>
+                                <span>NL24-1551416 <b>x</b> NL23-9590755</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Active</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row">
+                                <input type="checkbox">
+                                <span>P-2025-004</span>
+                                <span>NL24-8078038 <b>x</b> NL21-1504510</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Active</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row inactive-row">
+                                <input type="checkbox">
+                                <span>P-2025-005</span>
+                                <span>NL22-8072229 <b>x</b> NL24-8078056</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Inactive</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row">
+                                <input type="checkbox">
+                                <span>P-2025-006</span>
+                                <span>NL23-9050359 <b>x</b> NL23-7081645</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Active</em>
+                                <span class="dots">⋮</span>
+                            </div>
+
+                            <div class="pairs-list-row inactive-row">
+                                <input type="checkbox">
+                                <span>P-2025-007</span>
+                                <span>NL24-8077619 <b>x</b> NL21-1504865</span>
+                                <span>92%</span>
+                                <span>90%</span>
+                                <strong>92.4</strong>
+                                <em>Inactive</em>
+                                <span class="dots">⋮</span>
+                            </div>
+                        </div>
+
+                        <div class="pair-pagination">
+                            <p>Showing 1 to 7 of 50 pairs</p>
+                            <div>
+                                <button type="button">‹</button>
+                                <button type="button" class="active-page">1</button>
+                                <button type="button">2</button>
+                                <button type="button">3</button>
+                                <button type="button">4</button>
+                                <button type="button">5</button>
+                                <button type="button">›</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="pair-profile-card">
+                    <div class="pair-profile-title">
+                        <h2>Pair Profile</h2>
+                        <div>
+                            <button type="button" class="edit-pair">✎ Edit Pair</button>
+                            <button type="button" class="close-pair">× Close</button>
+                        </div>
+                    </div>
+
+                    <div class="pair-profile-tags">
+                        <span>P-2025-001</span>
+                        <strong>● Active</strong>
+                    </div>
+
+                    <div class="pair-birds">
+                        <div class="bird-info">
+                            <h4>Male</h4>
+                            <h3>NL24-2102319</h3>
+                            <p>Blue</p>
+                            <p>C & G Koopman</p>
+                            <small>Golden Wings</small>
+                        </div>
+
+                        <img class="bird-image" src="images/pigeons/pigeon1.png" alt="Male pigeon">
+                        <span class="large-x">×</span>
+                        <img class="bird-image" src="images/pigeons/pigeon2.png" alt="Female pigeon">
+
+                        <div class="bird-info female-info">
+                            <h4>Female</h4>
+                            <h3>NL22-8072203</h3>
+                            <p>Blue</p>
+                            <p>C & G Koopman</p>
+                            <small>Diamond Wings</small>
+                        </div>
+                    </div>
+
+                    <div class="pair-profile-kpis">
+                        <div>
+                            <h4>Hatch Rate</h4>
+                            <strong>92%</strong>
+                            <p>66 / 72 Eggs</p>
+                        </div>
+                        <div>
+                            <h4>Survival Rate</h4>
+                            <strong>90%</strong>
+                            <p>59 / 66 Hatched</p>
+                        </div>
+                        <div>
+                            <h4>Avg. Youngsters / Year</h4>
+                            <strong>4.2</strong>
+                            <p>Last 2 Years</p>
+                        </div>
+                        <div>
+                            <h4>Performance Score</h4>
+                            <strong>92.4 <span>/ 100</span></strong>
+                            <p>Excellent</p>
+                        </div>
+                    </div>
+
+                    <nav class="pair-tabs">
+                        <a href="#" class="active-tab">Overview</a>
+                        <a href="#">Breeding History</a>
+                        <a href="#">Youngsters</a>
+                        <a href="#">Performance</a>
+                        <a href="#">Pedigree</a>
+                    </nav>
+
+                    <div class="pair-overview-grid">
+                        <section class="pair-statistics">
+                            <h3>Pair Statistics</h3>
+                            <div><span><img src="images/dashboard-icon/nest-circle.png" alt="Nests"> Nests</span><strong>1</strong></div>
+                            <div><span><img src="images/dashboard-icon/egg-circle.png" alt="Eggs Laid"> Eggs Laid</span><strong>8</strong></div>
+                            <div><span><img src="images/dashboard-icon/hatch-circle.png" alt="Hatched"> Hatched</span><strong>8</strong></div>
+                            <div><span><img src="images/dashboard-icon/youngster-circle.png" alt="Youngsters"> Youngsters</span><strong>8</strong></div>
+                            <div><span><img src="images/dashboard-icon/prize-circle.png" alt="Prize Winners"> Prize Winners</span><strong>2</strong></div>
+                        </section>
+
+                        <section class="performance-trend">
+                            <div class="trend-title">
+                                <h3>Performance Trend</h3>
+                                <select>
+                                    <option>This Season</option>
+                                </select>
+                            </div>
+                            <div class="trend-legend">
+                                <span><b></b> Hatch Rate</span>
+                                <span><b></b> Survival Rate</span>
+                            </div>
+                            <div class="trend-chart">
+                                <img src="images/dashboard-icon/performance-trend.png" alt="Performance trend chart">
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="recent-nests-card">
+                        <h3>Recent Nests</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nest ID</th>
+                                    <th>Round</th>
+                                    <th>Date Laid</th>
+                                    <th>Eggs</th>
+                                    <th>Hatched</th>
+                                    <th>Youngsters</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>N-2025-001</td>
+                                    <td>Round 5</td>
+                                    <td>1 January 2025</td>
+                                    <td>2</td>
+                                    <td>8</td>
+                                    <td>8</td>
+                                    <td><span>Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>N-2025-002</td>
+                                    <td>Round 5</td>
+                                    <td>1 January 2025</td>
+                                    <td>2</td>
+                                    <td>8</td>
+                                    <td>8</td>
+                                    <td><span>Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>N-2025-003</td>
+                                    <td>Round 5</td>
+                                    <td>1 January 2025</td>
+                                    <td>1</td>
+                                    <td>8</td>
+                                    <td>8</td>
+                                    <td><span>Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button">View Full Breeding History →</button>
+                    </section>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
