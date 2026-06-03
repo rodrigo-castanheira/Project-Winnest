@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nest Management | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="pair-management.html" class="menu-item"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="nest-management.html" class="menu-item active"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content nest-management-content">
+            <section class="nest-header">
+                <h1>Nest Management</h1>
+            </section>
+
+            <section class="nest-kpi-grid">
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/nest-circle.png" alt="">
+                    <div><h4>Active Nests</h4><strong>42</strong><p>▲ 5 vs last season</p></div>
+                </article>
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/egg-circle.png" alt="">
+                    <div><h4>Egg Today</h4><strong>6</strong><p>▲ 2 vs yesterday</p></div>
+                </article>
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/hatch-circle.png" alt="">
+                    <div><h4>Hatched Today</h4><strong>2</strong><p>▲ 2 vs yesterday</p></div>
+                </article>
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/egg-circle.png" alt="">
+                    <div><h4>Total Eggs</h4><strong>86</strong><p>This season</p></div>
+                </article>
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/hatch-circle.png" alt="">
+                    <div><h4>Total Hatched</h4><strong>80</strong><p>This season</p></div>
+                </article>
+                <article class="nest-kpi-card">
+                    <img src="images/dashboard-icon/performance-circle.png" alt="">
+                    <div><h4>Hatch Rate</h4><strong>93.02%</strong><p>This season</p></div>
+                </article>
+            </section>
+
+            <section class="nest-main-grid">
+                <div class="nest-left-column">
+                    <article class="nest-list-card">
+                        <div class="nest-section-title">
+                            <div>
+                                <h2>Nest List</h2>
+                                <span>42 Nests</span>
+                            </div>
+                            <div>
+                                <button type="button" class="calendar-button">View Calendar <img src="images/menu-icon/calendar.png" alt=""></button>
+                                <button type="button" class="add-nest-button"><img src="images/dashboard-icon/add.png" alt="">Add New Nest</button>
+                            </div>
+                        </div>
+
+                        <nav class="nest-tabs">
+                            <a href="#" class="active-tab">All Nests</a>
+                            <a href="#">Active</a>
+                            <a href="#">With Eggs</a>
+                            <a href="#">Hatched</a>
+                            <a href="#">Empty</a>
+                        </nav>
+
+                        <div class="nest-table">
+                            <div class="nest-row">
+                                <p>N-2025-001</p><p>P-2025-001<br><small>NL24-2102319 × NL22-8072203</small></p><p>5</p><p>2</p><p>-</p><p>-</p><p>1 January 2025</p><b>⋮</b>
+                            </div>
+                            <div class="nest-row">
+                                <p>N-2025-002</p><p>P-2025-002<br><small>NL24-8078042 × NL24-8077834</small></p><p>5</p><p><span class="active-status">Active</span></p><p>-</p><p>-</p><p>-</p><b>⋮</b>
+                            </div>
+                            <div class="nest-row">
+                                <p>N-2025-003</p><p>P-2025-003<br><small>NL24-1551416 × NL23-9590755</small></p><p>5</p><p><span class="hatched-status">Hatched</span></p><p>-</p><p>2</p><p>1 January 2025</p><b>⋮</b>
+                            </div>
+                            <div class="nest-row">
+                                <p>N-2026-004</p><p>P-2025-004<br><small>NL24-8078038 × NL21-1504510</small></p><p>5</p><p><span class="active-status">Active</span></p><p>2</p><p>-</p><p>-</p><b>⋮</b>
+                            </div>
+                            <div class="nest-row">
+                                <p>N-2025-005</p><p>P-2025-005<br><small>NL22-8072229 × NL24-8078056</small></p><p>5</p><p><span class="egg-status">With eggs</span></p><p>2</p><p>-</p><p>1 January 2025</p><b>⋮</b>
+                            </div>
+                        </div>
+                    </article>
+
+                    <section class="nest-chart-grid">
+                        <article class="nest-chart-card">
+                            <h2>Breeding Rounds Overview</h2>
+                            <img src="images/charts/breeding-rounds-overview.png" alt="Breeding rounds overview">
+                        </article>
+                        <article class="nest-chart-card">
+                            <div class="nest-section-title">
+                                <h2>Hatch Rate by Round</h2>
+                                <select><option>This Season</option></select>
+                            </div>
+                            <img src="images/charts/hatch-rate-by-round.png" alt="Hatch rate by round">
+                        </article>
+                    </section>
+                </div>
+
+                <div class="nest-right-column">
+                    <article class="nest-details-card">
+                        <div class="nest-section-title">
+                            <h2>Nest Details</h2>
+                            <button type="button">Round 3</button>
+                        </div>
+
+                        <h3>N-2026-001</h3>
+                        <h4>Pair</h4>
+                        <p class="nest-pair-line"><strong>P-2026-001</strong> ♂ NL24-8077995 <span>×</span> ♀ NL23-9590692</p>
+
+                        <div class="nest-details-kpis">
+                            <div><h5>Eggs</h5><strong>2</strong><img src="images/dashboard-icon/egg-circle.png" alt=""></div>
+                            <div><h5>Hatched</h5><strong>0</strong><img src="images/dashboard-icon/hatch-circle.png" alt=""></div>
+                            <div><h5>Youngsters</h5><strong>0</strong><img src="images/dashboard-icon/youngster-circle.png" alt=""></div>
+                            <div><h5>Status</h5><span>With eggs</span></div>
+                        </div>
+
+                        <h4>Nest Timeline</h4>
+                        <div class="timeline-row">
+                            <img src="images/dashboard-icon/egg-circle.png" alt="">
+                            <p><strong>Egg Laid</strong><br>2nd Egg</p>
+                            <small>1 May 2026</small>
+                        </div>
+                        <div class="timeline-row">
+                            <img src="images/dashboard-icon/egg-circle.png" alt="">
+                            <p><strong>Egg Laid</strong><br>1st Egg</p>
+                            <small>30 April 2026</small>
+                        </div>
+
+                        <div class="nest-detail-actions">
+                            <button type="button"><img src="images/dashboard-icon/add.png" alt="">Record Egg</button>
+                            <button type="button"><img src="images/dashboard-icon/edit.png" alt="">Edit Nest</button>
+                        </div>
+                    </article>
+
+                    <article class="recent-hatch-card">
+                        <div class="nest-section-title">
+                            <h2>Recent Hatch Records</h2>
+                            <button type="button">View all</button>
+                        </div>
+
+                        <div class="hatch-record">
+                            <img src="images/dashboard-icon/egg-circle.png" alt="">
+                            <p>N-2026-001<br>P-2026-001</p>
+                            <p>Round 4<br>NL24-2102319 × NL22-8072203</p>
+                            <p>1 Hatched<br>1 April 2025</p>
+                        </div>
+                        <div class="hatch-record">
+                            <img src="images/dashboard-icon/egg-circle.png" alt="">
+                            <p>N-2026-002<br>P-2026-002</p>
+                            <p>Round 4<br>NL24-8078042 × NL24-8077834</p>
+                            <p>2 Hatched<br>1 April 2025</p>
+                        </div>
+                        <div class="hatch-record">
+                            <img src="images/dashboard-icon/egg-circle.png" alt="">
+                            <p>N-2026-003<br>P-2026-003</p>
+                            <p>Round 4<br>NL24-1551416 × NL23-9590755</p>
+                            <p>2 Hatched<br>1 April 2025</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

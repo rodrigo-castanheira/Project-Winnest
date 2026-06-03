@@ -2491,3 +2491,438 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+/* NEST MANAGEMENT */
+
+.nest-management-content {
+    padding: 0 13px 20px;
+}
+
+.nest-header {
+    height: 134px;
+    padding: 52px 0 0 9px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.nest-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.nest-kpi-card {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    min-height: 90px;
+    padding: 14px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.nest-kpi-card img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.nest-kpi-card h4 {
+    margin: 0 0 5px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.nest-kpi-card strong {
+    display: block;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.nest-kpi-card p {
+    margin: 7px 0 0;
+    font-size: 10px;
+}
+
+.nest-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 714px) minmax(0, 1fr);
+    gap: 13px;
+    margin-top: 12px;
+}
+
+.nest-left-column,
+.nest-right-column {
+    min-width: 0;
+}
+
+.nest-list-card,
+.nest-details-card,
+.recent-hatch-card,
+.nest-chart-card {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.nest-list-card {
+    min-height: 486px;
+    overflow: hidden;
+}
+
+.nest-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nest-list-card > .nest-section-title {
+    padding: 12px 12px 0;
+}
+
+.nest-section-title > div {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nest-section-title h2 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.nest-section-title span {
+    padding: 5px 12px;
+    color: #3e993e;
+    border-radius: 4px;
+    background-color: #ecffec;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.nest-section-title button,
+.nest-section-title select {
+    width: auto;
+    height: 30px;
+    margin-bottom: 0;
+    padding: 0 12px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.calendar-button {
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+}
+
+.add-nest-button {
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed !important;
+}
+
+.calendar-button img,
+.add-nest-button img {
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    object-fit: contain;
+}
+
+.add-nest-button img {
+    margin-right: 6px;
+    margin-left: 0;
+}
+
+.nest-tabs {
+    display: flex;
+    gap: 34px;
+    margin-top: 30px;
+    padding: 0 13px;
+}
+
+.nest-tabs a {
+    color: #183857;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.nest-tabs .active-tab {
+    font-weight: 800;
+}
+
+.nest-table {
+    margin-top: 52px;
+    border-top: 1px solid #e5f2fd;
+}
+
+.nest-row {
+    display: grid;
+    grid-template-columns: 85px 175px 40px 95px 48px 48px 120px 20px;
+    align-items: center;
+    min-height: 68px;
+    padding: 0 12px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.nest-row p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.nest-row small {
+    font-size: 8px;
+}
+
+.nest-row b {
+    font-size: 22px;
+    text-align: center;
+}
+
+.active-status,
+.hatched-status,
+.egg-status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.active-status {
+    color: #3e993e;
+    background-color: #ecffec;
+}
+
+.hatched-status {
+    color: #168cff;
+    background-color: #e5f2fd;
+}
+
+.egg-status {
+    color: #ff8a25;
+    background-color: #fff0e3;
+}
+
+.nest-chart-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.nest-chart-card {
+    min-height: 212px;
+    padding: 13px 14px;
+}
+
+.nest-chart-card h2 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.nest-chart-card img {
+    width: 100%;
+    height: 165px;
+    margin-top: 12px;
+    object-fit: contain;
+}
+
+.nest-chart-card select {
+    width: 86px;
+    height: 24px;
+    font-size: 8px;
+}
+
+.nest-details-card {
+    min-height: 514px;
+    padding: 18px 15px;
+}
+
+.nest-details-card h3 {
+    margin: 18px 0 26px;
+    font-size: 18px;
+}
+
+.nest-details-card h4 {
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.nest-pair-line {
+    margin: 0 0 26px;
+    font-size: 13px;
+}
+
+.nest-pair-line strong {
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.nest-pair-line span {
+    margin: 0 8px;
+    color: #ff0000;
+}
+
+.nest-details-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.nest-details-kpis div {
+    position: relative;
+    min-height: 84px;
+    padding: 16px 10px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+}
+
+.nest-details-kpis h5 {
+    margin: 0 0 13px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.nest-details-kpis strong {
+    font-size: 22px;
+}
+
+.nest-details-kpis img {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.nest-details-kpis span {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 6px 10px;
+    color: #ff8a25;
+    border-radius: 4px;
+    background-color: #fff0e3;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.timeline-row {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 95px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.timeline-row img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.timeline-row p {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.timeline-row small {
+    font-size: 11px;
+    text-align: right;
+}
+
+.nest-detail-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 35px;
+}
+
+.nest-detail-actions button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    height: 36px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 11px;
+}
+
+.nest-detail-actions img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.recent-hatch-card {
+    min-height: 222px;
+    margin-top: 12px;
+    padding: 17px 15px;
+}
+
+.recent-hatch-card .nest-section-title button {
+    height: 24px;
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+    font-size: 9px;
+}
+
+.hatch-record {
+    display: grid;
+    grid-template-columns: 32px 80px minmax(0, 1fr) 75px;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.hatch-record img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.hatch-record p {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.hatch-record p:last-child {
+    text-align: right;
+}
+
+@media (max-width: 1100px) {
+    .nest-kpi-grid,
+    .nest-main-grid,
+    .nest-chart-grid,
+    .nest-details-kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .nest-list-card {
+        overflow-x: auto;
+    }
+
+    .nest-row {
+        min-width: 720px;
+    }
+
+    .nest-section-title,
+    .nest-section-title > div {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
