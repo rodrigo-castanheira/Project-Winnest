@@ -3681,3 +3681,16 @@ button {
         margin-top: 40px;
     }
 }
+
+/* HEALTH RECORDS */
+
+.health-records-content {
+    padding: 0 22px 20px;
+}
+
+.health-records-header {
+    display: flex;
+    align-items: center;
+    height: 134px;
+    border-bottom: 1px solid #e5f2fd;
+}
