@@ -1,1 +1,320 @@
-race-results.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Results | Winnest</title>
+    <link rel="stylesheet" href="winnest-style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="pair-management.html" class="menu-item"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="youngster-profile.html" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="health-records.html" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="race-results.html" class="menu-item active"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content race-results-content">
+            <section class="race-results-header">
+                <h1>Race Results</h1>
+            </section>
+
+            <section class="race-kpi-grid">
+                <article class="race-kpi-card">
+                    <img src="images/dashboard-icon/race-circle.png" alt="">
+                    <div>
+                        <h4>Total Races</h4>
+                        <strong>10</strong>
+                        <p>This Season</p>
+                    </div>
+                </article>
+
+                <article class="race-kpi-card">
+                    <img src="images/dashboard-icon/prize-circle.png" alt="">
+                    <div>
+                        <h4>Prize Winners</h4>
+                        <strong>20</strong>
+                        <p>10% of entries</p>
+                    </div>
+                </article>
+
+                <article class="race-kpi-card">
+                    <img src="images/dashboard-icon/ace-pigeon.png" alt="">
+                    <div>
+                        <h4>Ace Pigeons</h4>
+                        <strong>5</strong>
+                        <p>Qualified</p>
+                    </div>
+                </article>
+
+                <article class="race-kpi-card">
+                    <img src="images/dashboard-icon/average.png" alt="">
+                    <div>
+                        <h4>Avg. Position</h4>
+                        <strong>10</strong>
+                        <p>All Races</p>
+                    </div>
+                </article>
+
+                <article class="race-kpi-card">
+                    <img src="images/dashboard-icon/score.png" alt="">
+                    <div>
+                        <h4>Avg. Points</h4>
+                        <strong>800</strong>
+                        <p>All Races</p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="race-results-grid">
+                <div class="race-left-column">
+                    <article class="race-filter-card">
+                        <h2>Filter Races</h2>
+
+                        <div class="race-filter-grid">
+                            <div>
+                                <label>Race Type</label>
+                                <select>
+                                    <option>All Type</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label>Status</label>
+                                <select>
+                                    <option>All</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label>From Date</label>
+                                <input type="date">
+                            </div>
+
+                            <div>
+                                <label>To Date</label>
+                                <input type="date">
+                            </div>
+
+                            <div>
+                                <label>Distance</label>
+                                <select>
+                                    <option>All Distances</option>
+                                </select>
+                            </div>
+
+                            <button type="button">Apply Filters</button>
+                        </div>
+                    </article>
+
+                    <article class="race-list-panel">
+                        <h2>Race List</h2>
+
+                        <table class="race-list-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Race</th>
+                                    <th>Type</th>
+                                    <th>Distance</th>
+                                    <th>Pigeons</th>
+                                    <th>Basketed</th>
+                                    <th>Return</th>
+                                    <th>Return Rate</th>
+                                    <th>Prize Winners</th>
+                                    <th>Top Position</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1 May 2026</td>
+                                    <td>Club Race 5</td>
+                                    <td>Club</td>
+                                    <td>120 km</td>
+                                    <td>1,200</td>
+                                    <td>40</td>
+                                    <td>40</td>
+                                    <td>100%</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td><span>complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>1 April 2026</td>
+                                    <td>Club Race 4</td>
+                                    <td>Club</td>
+                                    <td>100 km</td>
+                                    <td>1,200</td>
+                                    <td>40</td>
+                                    <td>40</td>
+                                    <td>100%</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td><span>complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>1 March 2026</td>
+                                    <td>Club Race 5</td>
+                                    <td>Club</td>
+                                    <td>80 km</td>
+                                    <td>1,200</td>
+                                    <td>40</td>
+                                    <td>40</td>
+                                    <td>100%</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td><span>complete</span></td>
+                                </tr>
+                                <tr>
+                                    <td>1 February 2026</td>
+                                    <td>Club Race 4</td>
+                                    <td>Club</td>
+                                    <td>60 km</td>
+                                    <td>1,200</td>
+                                    <td>40</td>
+                                    <td>40</td>
+                                    <td>100%</td>
+                                    <td>5</td>
+                                    <td>1</td>
+                                    <td><span>complete</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="race-pagination">
+                            <p>Showing 1 to 10 of ...... races</p>
+                            <div>
+                                <button type="button">‹</button>
+                                <button type="button" class="active-page">1</button>
+                                <button type="button">2</button>
+                                <button type="button">3</button>
+                                <button type="button">4</button>
+                                <button type="button">5</button>
+                                <button type="button">›</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="race-right-column">
+                    <article class="race-details-card">
+                        <h3>Race Details</h3>
+
+                        <div class="race-detail-title">
+                            <h2>Club Race 5</h2>
+                            <span>Completed</span>
+                        </div>
+
+                        <div class="race-detail-info">
+                            <p><strong>Date</strong>1 March 2026</p>
+                            <p><strong>Distance</strong>120 km</p>
+                        </div>
+
+                        <div class="race-detail-kpis">
+                            <div><strong>1,200</strong><span>Pigeons</span></div>
+                            <div><strong>40</strong><span>Basketed</span></div>
+                            <div><strong>40</strong><span>Returned</span></div>
+                            <div><strong>100%</strong><span>Return Rate</span></div>
+                            <div><strong>5</strong><span>Prize winners</span></div>
+                        </div>
+
+                        <section class="top-results-card">
+                            <h3>Top Results</h3>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Ring Number</th>
+                                        <th>Parents (Male x Female)</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="rank gold">1</span></td>
+                                        <td>NL25-1551001</td>
+                                        <td>NL24-2102319 <b>x</b> NL22-8072203</td>
+                                        <td>100</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="rank silver">2</span></td>
+                                        <td>NL25-1551002</td>
+                                        <td>NL24-8078042 <b>x</b> NL24-8077834</td>
+                                        <td>99</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="rank bronze">3</span></td>
+                                        <td>NL25-1551003</td>
+                                        <td>NL24-1551416 <b>x</b> NL23-9590755</td>
+                                        <td>98</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="button">View Full Results</button>
+                        </section>
+                    </article>
+
+                    <article class="ace-pigeons-card">
+                        <h3>Ace Pigeons</h3>
+
+                        <div class="ace-pigeon-row">
+                            <span class="rank gold">1</span>
+                            <div>
+                                <strong>NL25-1551001</strong>
+                                <p>NL24-2102319 <b>x</b> NL22-8072203</p>
+                            </div>
+                            <span>5 Races</span>
+                            <span>900 points</span>
+                        </div>
+
+                        <div class="ace-pigeon-row">
+                            <span class="rank silver">2</span>
+                            <div>
+                                <strong>NL25-1551002</strong>
+                                <p>NL24-8078042 <b>x</b> NL24-8077834</p>
+                            </div>
+                            <span>5 Races</span>
+                            <span>898 points</span>
+                        </div>
+
+                        <div class="ace-pigeon-row">
+                            <span class="rank bronze">3</span>
+                            <div>
+                                <strong>NL25-1551003</strong>
+                                <p>NL24-1551416 <b>x</b> NL23-9590755</p>
+                            </div>
+                            <span>5 Races</span>
+                            <span>897 points</span>
+                        </div>
+
+                        <button type="button">View Full Results</button>
+                    </article>
+                </aside>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

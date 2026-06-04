@@ -3291,3 +3291,393 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+/* RACE RESULTS */
+
+.race-results-content {
+    padding: 0 22px 20px;
+}
+
+.race-results-header {
+    display: flex;
+    align-items: center;
+    height: 134px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.race-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 15px;
+}
+
+.race-kpi-card {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr);
+    align-items: center;
+    min-height: 92px;
+    padding: 18px 20px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.race-kpi-card img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+}
+
+.race-kpi-card h4 {
+    margin: 0 0 7px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.race-kpi-card strong {
+    display: block;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.race-kpi-card p {
+    margin: 8px 0 0;
+    font-size: 10px;
+}
+
+.race-results-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 392px;
+    gap: 9px;
+    margin-top: 12px;
+}
+
+.race-left-column {
+    min-width: 0;
+}
+
+.race-filter-card,
+.race-list-panel,
+.race-details-card,
+.ace-pigeons-card {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.race-filter-card {
+    min-height: 152px;
+    padding: 17px 16px;
+}
+
+.race-filter-card h2,
+.race-list-panel h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.race-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 13px;
+    align-items: end;
+    margin-top: 34px;
+}
+
+.race-filter-grid label {
+    margin-bottom: 7px;
+    font-size: 10px;
+}
+
+.race-filter-grid select,
+.race-filter-grid input {
+    height: 30px;
+    margin-bottom: 0;
+    padding: 0 10px;
+    font-size: 10px;
+}
+
+.race-filter-grid button {
+    width: 100%;
+    height: 30px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 10px;
+}
+
+.race-list-panel {
+    min-height: 565px;
+    margin-top: 12px;
+    padding: 35px 16px 14px;
+}
+
+.race-list-table {
+    width: 100%;
+    margin-top: 16px;
+    border-collapse: collapse;
+}
+
+.race-list-table th {
+    height: 28px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.race-list-table td {
+    height: 40px;
+    font-size: 9px;
+}
+
+.race-list-table td span {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: #3e993e;
+    background-color: #ecffec;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.race-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 258px;
+}
+
+.race-pagination p {
+    margin: 0;
+    font-size: 11px;
+}
+
+.race-pagination div {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.race-pagination button {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    background-color: #ffffff;
+    font-size: 12px;
+}
+
+.race-pagination .active-page {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    color: #168cff;
+    background-color: #f7fbff;
+}
+
+.race-right-column {
+    min-width: 0;
+}
+
+.race-details-card {
+    min-height: 466px;
+    padding: 18px 16px;
+}
+
+.race-details-card > h3 {
+    margin: 0 0 14px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.race-detail-title {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.race-detail-title h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.race-detail-title span {
+    padding: 6px 18px;
+    color: #3e993e;
+    border-radius: 4px;
+    background-color: #ecffec;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.race-detail-info {
+    margin-top: 18px;
+}
+
+.race-detail-info p {
+    display: flex;
+    gap: 30px;
+    margin: 0 0 12px;
+    font-size: 11px;
+}
+
+.race-detail-info strong {
+    width: 34px;
+    font-weight: 800;
+}
+
+.race-detail-kpis {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+    margin-top: 14px;
+}
+
+.race-detail-kpis div {
+    min-height: 60px;
+    padding: 12px 4px;
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.race-detail-kpis strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.race-detail-kpis span {
+    display: block;
+    margin-top: 13px;
+    font-size: 8px;
+}
+
+.top-results-card {
+    margin-top: 22px;
+}
+
+.top-results-card h3,
+.ace-pigeons-card h3 {
+    margin: 0 0 15px;
+    color: #3e993e;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.top-results-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.top-results-card th {
+    height: 28px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.top-results-card td {
+    height: 38px;
+    font-size: 8px;
+}
+
+.top-results-card b,
+.ace-pigeon-row b {
+    margin: 0 5px;
+    color: #ff0000;
+    font-weight: 400;
+}
+
+.rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.gold {
+    background-color: #fff2a6;
+}
+
+.silver {
+    background-color: #eeeeee;
+}
+
+.bronze {
+    background-color: #ffe0c4;
+}
+
+.top-results-card button,
+.ace-pigeons-card button {
+    width: 100%;
+    height: 32px;
+    margin-top: 31px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.ace-pigeons-card {
+    min-height: 241px;
+    margin-top: 22px;
+    padding: 20px 20px;
+}
+
+.ace-pigeons-card h3 {
+    color: #183857;
+}
+
+.ace-pigeon-row {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) 70px 80px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.ace-pigeon-row strong {
+    font-size: 11px;
+}
+
+.ace-pigeon-row p {
+    margin: 4px 0 0;
+    font-size: 8px;
+}
+
+.ace-pigeon-row > span:not(.rank) {
+    font-size: 11px;
+}
+
+.ace-pigeons-card button {
+    margin-top: 3px;
+}
+
+@media (max-width: 1100px) {
+    .race-kpi-grid,
+    .race-results-grid,
+    .race-filter-grid,
+    .race-detail-kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .race-list-panel {
+        overflow-x: auto;
+    }
+
+    .race-list-table {
+        min-width: 850px;
+    }
+
+    .race-pagination {
+        margin-top: 40px;
+    }
+}
