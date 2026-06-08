@@ -50,16 +50,16 @@
             <header>
                 <h1>Register New Youngster</h1>
             </header>
-            <form>
+            <form action="Php/register-youngster.php" method="POST">
                 <section class="form-grid">
                     <article class="card youngster-card">
                         <h3>Youngster Information</h3>
                         <label for="ring-number">Ring Number</label>
-                        <input id="ring-number" type="text">
+                        <input id="ring-number" name="ring_number" type="text">
                         <div class="two-columns">
                             <div class="field">
                                 <label for="gender">Gender</label>
-                                <select id="gender">
+                                <select id="gender" name="gender">
                                     <option>Select gender</option>
                                     <option>Male</option>
                                     <option>Female</option>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="field">
                                 <label for="color">Color</label>
-                                <select id="color">
+                                <select id="color" name="color">
                                     <option>Select color</option>
                                     <option>Blue</option>
                                     <option>Ash-Red</option>
@@ -81,11 +81,11 @@
                         <div class="two-columns">
                             <div class="field">
                                 <label for="hatched-date">Hatched Date</label>
-                                <input id="hatched-date" type="date">
+                                <input id="hatched-date" name="hatched_date" type="date">
                             </div>
                             <div class="field">
                                 <label for="bloodline">Blood Line</label>
-                                <select id="bloodline">
+                                <select id="bloodline" name="bloodline">
                                     <option>Select bloodline</option>
                                     <option>Koopman</option>
                                     <option>Janssen</option>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="status-field">
                             <label for="status">Status</label>
-                            <select id="status">
+                            <select id="status" name="status">
                                 <option>Select status</option>
                                 <option>OLR</option>
                                 <option>Keep as breeder</option>
@@ -106,7 +106,7 @@
                             </select>
                         </div>
                         <label for="note">Note (Optional)</label>
-                        <input id="note" type="text" placeholder="Add notes about this youngster">
+                        <input id="note" name="note" type="text" placeholder="Add notes about this youngster">
                     </article>
                     <div class="right-column">
                         <article class="card parents-card">
