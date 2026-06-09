@@ -38,6 +38,24 @@
         $dt = DateTime::createFromFormat('Y-m-d', $d);
         return $dt ? $dt->format('j F Y') : $d;
     }
+
+    // Edit mode is on when ?edit= is present and a pigeon is loaded.
+    $editMode          = isset($_GET['edit']) && $pigeon !== null;
+
+    // Option lists for the edit form (same whitelists the handler enforces).
+    $genderOptions     = ['Male', 'Female', 'Unknown'];
+    $allowedColors     = ['Blue', 'Ash-Red', 'Black', 'Light Check', 'Dark Check'];
+    $allowedBloodlines = ['Koopman', 'Janssen', 'Heremans', 'Van den Bulck'];
+    $allowedStatuses   = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
+
+    // Build a <select> with $options, pre-selecting $current.
+    function selectField($name, $options, $current, $placeholder) {
+        $html = '<select name="' . e($name) . '"><option value="">' . e($placeholder) . '</option>';
+        foreach ($options as $opt) {
+            $html .= '<option' . ($opt === $current ? ' selected' : '') . '>' . e($opt) . '</option>';
+        }
+        return $html . '</select>';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,8 +120,10 @@
                         </select>
                         <button type="submit">View</button>
                     </form>
-                    <button type="button" class="youngster-edit-button"><img src="images/dashboard-icon/edit.png"
-                            alt="">Edit Youngster</button>
+                    <?php if (!$editMode && $pigeon !== null): ?>
+                    <a class="youngster-edit-button" href="?id=<?= e($selectedId) ?>&edit=1"><img
+                            src="images/dashboard-icon/edit.png" alt="">Edit Youngster</a>
+                    <?php endif; ?>
                     <button type="button" class="youngster-green-button"><img src="images/dashboard-icon/add.png"
                             alt="">Record Race Result</button>
                 </div>
@@ -118,6 +138,34 @@
             <?php else: ?>
             <section class="youngster-top-grid">
                 <article class="youngster-main-card">
+                    <?php if ($editMode): ?>
+                    <form method="post" action="Php/update-youngster.php" class="youngster-edit-form">
+                        <input type="hidden" name="id" value="<?= e($pigeon['id']) ?>">
+                        <div class="youngster-title-row">
+                            <h2>Edit Youngster</h2>
+                        </div>
+                        <label for="edit-ring">Ring Number</label>
+                        <input id="edit-ring" type="text" name="ring_number" value="<?= e($pigeon['band_number']) ?>">
+                        <label for="edit-name">Name</label>
+                        <input id="edit-name" type="text" name="name" value="<?= e($pigeon['name']) ?>">
+                        <label>Gender</label>
+                        <?= selectField('gender', $genderOptions, $sexLabel[$pigeon['sex']] ?? 'Unknown', 'Select gender') ?>
+                        <label>Color</label>
+                        <?= selectField('color', $allowedColors, $pigeon['color'], 'Select color') ?>
+                        <label for="edit-date">Hatched Date</label>
+                        <input id="edit-date" type="date" name="hatched_date" value="<?= e($pigeon['date_of_birth']) ?>">
+                        <label>Bloodline</label>
+                        <?= selectField('bloodline', $allowedBloodlines, $pigeon['bloodline'], 'Select bloodline') ?>
+                        <label>Status</label>
+                        <?= selectField('status', $allowedStatuses, $pigeon['status'], 'Select status') ?>
+                        <label for="edit-note">Note</label>
+                        <input id="edit-note" type="text" name="note" value="<?= e($pigeon['notes']) ?>">
+                        <div class="youngster-edit-actions">
+                            <a class="cancel" href="?id=<?= e($pigeon['id']) ?>">Cancel</a>
+                            <button type="submit" class="save">Save Changes</button>
+                        </div>
+                    </form>
+                    <?php else: ?>
                     <div class="youngster-title-row">
                         <h2><?= e($pigeon['band_number']) ?> <?= $sexSymbol[$pigeon['sex']] ?? '' ?></h2>
                         <span><?= e(orDash($pigeon['status'])) ?></span>
@@ -135,6 +183,7 @@
                             <p><strong>Current Location:</strong> —</p>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </article>
 
                 <article class="performance-snapshot-card">
