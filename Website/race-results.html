@@ -21,7 +21,7 @@
                         alt="Pair Management"><span>Pair Management</span></a>
                 <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png"
                         alt="Nest Management"><span>Nest Management</span></a>
-                <a href="youngster-profile.html" class="menu-item"><img src="images/menu-icon/youngster.png"
+                <a href="youngster-profile.php" class="menu-item"><img src="images/menu-icon/youngster.png"
                         alt="Youngsters"><span>Youngsters</span></a>
                 <a href="health-records.html" class="menu-item"><img src="images/menu-icon/health.png"
                         alt="Health Records"><span>Health Records</span></a>
