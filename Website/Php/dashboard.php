@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/Php/dbHandler.php';
+    require __DIR__ . '/dbHandler.php';
 
     // The dashboard summarises the WINNEST LOFT (seeded as loft_id = 1).
     $loftId = 1;
@@ -103,41 +103,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Winnest</title>
-    <link rel="stylesheet" href="winnest-style.css">
+    <link rel="stylesheet" href="../winnest-style.css">
 </head>
 
 <body>
     <div class="layout">
         <aside class="sidebar">
             <div class="logo">
-                <img src="./images/winnest-logo.png" alt="Winnest logo">
+                <img src="../images/winnest-logo.png" alt="Winnest logo">
             </div>
             <nav class="menu">
-                <a href="dashboard.php" class="menu-item active"><img src="images/menu-icon/dashboard.png"
+                <a href="dashboard.php" class="menu-item active"><img src="../images/menu-icon/dashboard.png"
                         alt="Dashboard"><span>Dashboard</span></a>
-                <a href="pair-management.html" class="menu-item"><img src="images/menu-icon/pair.png"
+                <a href="pair-management.html" class="menu-item"><img src="../images/menu-icon/pair.png"
                         alt="Pair Management"><span>Pair Management</span></a>
-                <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png"
+                <a href="nest-management.html" class="menu-item"><img src="../images/menu-icon/nest.png"
                         alt="Nest Management"><span>Nest Management</span></a>
-                <a href="youngster-profile.php" class="menu-item"><img src="images/menu-icon/youngster.png"
+                <a href="youngster-profile.php" class="menu-item"><img src="../images/menu-icon/youngster.png"
                         alt="Youngsters"><span>Youngsters</span></a>
-                <a href="health-records.html" class="menu-item"><img src="images/menu-icon/health.png"
+                <a href="health-records.html" class="menu-item"><img src="../images/menu-icon/health.png"
                         alt="Health Records"><span>Health Records</span></a>
-                <a href="race-results.html" class="menu-item"><img src="images/menu-icon/race.png"
+                <a href="race-results.html" class="menu-item"><img src="../images/menu-icon/race.png"
                         alt="Race Results"><span>Race Results</span></a>
-                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png"
+                <a href="analytics-dashboard.html" class="menu-item"><img src="../images/menu-icon/analytics.png"
                         alt="Analytics"><span>Analytics</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/report.png"
+                <a href="#" class="menu-item"><img src="../images/menu-icon/report.png"
                         alt="Reports"><span>Reports</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png"
+                <a href="#" class="menu-item"><img src="../images/menu-icon/calendar.png"
                         alt="Calendar"><span>Calendar</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft
+                <a href="#" class="menu-item"><img src="../images/menu-icon/setting.png" alt="Loft Settings"><span>Loft
                         Settings</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users &
+                <a href="#" class="menu-item"><img src="../images/menu-icon/users.png" alt="Users & Staff"><span>Users &
                         Staff</span></a>
             </nav>
             <div class="loft-card">
-                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <img src="../images/pigeons/koopman-loft.png" alt="Winnest loft">
                 <h3>WINNEST LOFT 🇳🇱</h3>
                 <p>Ermerveen 17</p>
                 <p>7814 VB Emmen</p>
@@ -176,7 +176,7 @@
                         <div class="overview-card">
                             <h4>Eggs Recorded</h4>
                             <div class="overview-value">
-                                <img src="images/dashboard-icon/egg-circle.png" alt="Egg">
+                                <img src="../images/dashboard-icon/egg-circle.png" alt="Egg">
                                 <strong><?= $eggsRecorded ?></strong>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                         <div class="overview-card">
                             <h4>Hatched</h4>
                             <div class="overview-value">
-                                <img src="images/dashboard-icon/hatch-circle.png" alt="Hatch">
+                                <img src="../images/dashboard-icon/hatch-circle.png" alt="Hatch">
                                 <strong><?= $hatchedCount ?></strong>
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                         <div class="overview-card">
                             <h4>Youngsters</h4>
                             <div class="overview-value">
-                                <img src="images/dashboard-icon/youngster-circle.png" alt="Youngster">
+                                <img src="../images/dashboard-icon/youngster-circle.png" alt="Youngster">
                                 <strong><?= $youngsterTotal ?></strong>
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                         <div class="overview-card">
                             <h4>Nests</h4>
                             <div class="overview-value">
-                                <img src="images/dashboard-icon/nest-circle.png" alt="Nest">
+                                <img src="../images/dashboard-icon/nest-circle.png" alt="Nest">
                                 <strong><?= $nestTotal ?></strong>
                             </div>
                         </div>
@@ -208,7 +208,7 @@
                         <div class="overview-card">
                             <h4>Health Records</h4>
                             <div class="overview-value">
-                                <img src="images/dashboard-icon/survival-circle.png" alt="Health">
+                                <img src="../images/dashboard-icon/survival-circle.png" alt="Health">
                                 <strong><?= $healthRecords ?></strong>
                             </div>
                         </div>
@@ -218,16 +218,16 @@
                 <article class="quick-actions">
                     <h2>Quick Actions</h2>
                     <div class="quick-grid">
-                        <a href="add-new-pair.html"><img src="images/dashboard-icon/add.png" alt=""><span>Add New
+                        <a href="./add-new-pair.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Add New
                                 Pair</span></a>
-                        <a href="record-new-egg.php"><img src="images/dashboard-icon/add.png" alt=""><span>Record
+                        <a href="./record-new-egg.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Record
                                 Egg</span></a>
-                        <a href="register-new-youngster.php"><img src="images/dashboard-icon/add.png"
+                        <a href="./register-new-youngster.php"><img src="../images/dashboard-icon/add.png"
                                 alt=""><span>Register Youngster</span></a>
-                        <a href="add-race-result.html"><img src="images/dashboard-icon/add.png" alt=""><span>Add Race
+                        <a href="../add-race-result.html"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race
                                 Result</span></a>
-                        <a href="#"><img src="images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
-                        <a href="#"><img src="images/dashboard-icon/add.png" alt=""><span>Add Calendar</span></a>
+                        <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
+                        <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Calendar</span></a>
                     </div>
                 </article>
             </section>
@@ -244,7 +244,7 @@
                     <?php else: ?>
                     <?php foreach ($activities as $a): $isEgg = ($a['kind'] === 'egg'); ?>
                     <div class="activity-item">
-                        <img src="images/dashboard-icon/<?= $isEgg ? 'egg' : 'youngster' ?>-circle.png" alt="">
+                        <img src="../images/dashboard-icon/<?= $isEgg ? 'egg' : 'youngster' ?>-circle.png" alt="">
                         <div>
                             <h4><?= $isEgg ? 'Egg recorded' : 'Youngster registered' ?></h4>
                             <p><?= $isEgg ? e($a['label'] ?: 'Egg') : 'Ring ' . e($a['label']) . ($a['extra'] ? ' — ' . e($a['extra']) : '') ?></p>
@@ -262,25 +262,25 @@
                     </div>
 
                     <div class="alert red">
-                        <img src="images/dashboard-icon/warning.png" alt="">
+                        <img src="../images/dashboard-icon/warning.png" alt="">
                         <p><strong>Low survival rate alert</strong><br>Pair 1 has a survival rate below 70%</p>
                         <button>View Pair</button>
                     </div>
 
                     <div class="alert orange">
-                        <img src="images/dashboard-icon/notification.png" alt="">
+                        <img src="../images/dashboard-icon/notification.png" alt="">
                         <p><strong>Missing ring numbers</strong><br>5 youngsters</p>
                         <button>View Youngster</button>
                     </div>
 
                     <div class="alert green">
-                        <img src="images/dashboard-icon/vaccination.png" alt="">
+                        <img src="../images/dashboard-icon/vaccination.png" alt="">
                         <p><strong>Vaccination due</strong><br>12 youngsters</p>
                         <button>View Health</button>
                     </div>
 
                     <div class="alert blue">
-                        <img src="images/dashboard-icon/race-event.png" alt="">
+                        <img src="../images/dashboard-icon/race-event.png" alt="">
                         <p><strong>Upcoming race</strong><br>PIPR Training 5 is on 5 June 2026</p>
                         <button>View Calendar</button>
                     </div>
@@ -326,19 +326,19 @@
                         <p>Pairs</p>
                         <strong><?= $pairTotal ?></strong>
                         <span>Active <?= $pairActive ?></span>
-                        <img src="images/dashboard-icon/pairing-circle.png" alt="">
+                        <img src="../images/dashboard-icon/pairing-circle.png" alt="">
                     </div>
                     <div>
                         <p>Nests</p>
                         <strong><?= $nestTotal ?></strong>
                         <span>Available <?= $nestAvailable ?></span>
-                        <img src="images/dashboard-icon/nest-circle.png" alt="">
+                        <img src="../images/dashboard-icon/nest-circle.png" alt="">
                     </div>
                     <div>
                         <p>Youngsters</p>
                         <strong><?= $youngsterTotal ?></strong>
                         <span>Born in <?= date('Y') ?>: <?= $youngsterBornThisYear ?></span>
-                        <img src="images/dashboard-icon/youngster-circle.png" alt="">
+                        <img src="../images/dashboard-icon/youngster-circle.png" alt="">
                     </div>
                 </div>
             </section>

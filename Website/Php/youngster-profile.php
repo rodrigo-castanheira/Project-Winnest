@@ -1,5 +1,5 @@
 <?php
-    require __DIR__ . '/Php/dbHandler.php';
+    require __DIR__ . '/dbHandler.php';
 
     // The youngsters belong to the WINNEST LOFT (seeded as loft_id = 1).
     $loftId = 1;
@@ -64,37 +64,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youngster Profile | Winnest</title>
-    <link rel="stylesheet" href="winnest-style.css">
+    <link rel="stylesheet" href="../winnest-style.css">
 </head>
 
 <body>
     <div class="layout">
         <aside class="sidebar">
             <div class="logo">
-                <img src="./images/winnest-logo.png" alt="Winnest logo">
+                <img src="../images/winnest-logo.png" alt="Winnest logo">
             </div>
             <nav class="menu">
-                <a href="dashboard.php" class="menu-item"><img src="images/menu-icon/dashboard.png"
+                <a href="dashboard.php" class="menu-item"><img src="../images/menu-icon/dashboard.png"
                         alt="Dashboard"><span>Dashboard</span></a>
-                <a href="pair-management.html" class="menu-item"><img src="images/menu-icon/pair.png"
+                <a href="pair-management.html" class="menu-item"><img src="../images/menu-icon/pair.png"
                         alt="Pair Management"><span>Pair Management</span></a>
-                <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png"
+                <a href="nest-management.html" class="menu-item"><img src="../images/menu-icon/nest.png"
                         alt="Nest Management"><span>Nest Management</span></a>
-                <a href="youngster-profile.php" class="menu-item active"><img src="images/menu-icon/youngster.png"
+                <a href="youngster-profile.php" class="menu-item active"><img src="../images/menu-icon/youngster.png"
                         alt="Youngsters"><span>Youngsters</span></a>
-                <a href="health-records.html" class="menu-item"><img src="images/menu-icon/health.png"
+                <a href="health-records.html" class="menu-item"><img src="../images/menu-icon/health.png"
                         alt="Health Records"><span>Health Records</span></a>
-                <a href="race-results.html" class="menu-item"><img src="images/menu-icon/race.png"
+                <a href="race-results.html" class="menu-item"><img src="../images/menu-icon/race.png"
                         alt="Race Results"><span>Race Results</span></a>
-                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png"
+                <a href="analytics-dashboard.html" class="menu-item"><img src="../images/menu-icon/analytics.png"
                         alt="Analytics"><span>Analytics</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/report.png"
+                <a href="#" class="menu-item"><img src="../images/menu-icon/report.png"
                         alt="Reports"><span>Reports</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png"
+                <a href="#" class="menu-item"><img src="../images/menu-icon/calendar.png"
                         alt="Calendar"><span>Calendar</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft
+                <a href="#" class="menu-item"><img src="../images/menu-icon/setting.png" alt="Loft Settings"><span>Loft
                         Settings</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users &
+                <a href="#" class="menu-item"><img src="../images/menu-icon/users.png" alt="Users & Staff"><span>Users &
                         Staff</span></a>
             </nav>
             <div class="loft-card">
