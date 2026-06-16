@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Breeding Pigeon | Winnest</title>
+    <link rel="stylesheet" href="./winnest-style.css">
+</head>
+
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="./images/winnest-logo.png" alt="Winnest logo">
+            </div>
+            <nav class="menu">
+                <a href="./Php/dashboard.php" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="pair-management.html" class="menu-item active"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="youngster-profile.php" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="health-records.html" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="race-results.html" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+            </nav>
+            <div class="loft-card">
+                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <h3>WINNEST LOFT 🇳🇱</h3>
+                <p>Ermerveen 17</p>
+                <p>7814 VB Emmen</p>
+                <p>The Netherlands</p>
+            </div>
+        </aside>
+
+        <main class="content add-breeding-pigeon-content">
+            <header class="add-breeding-pigeon-header">
+                <h1>Add New Breeding Pigeon</h1>
+            </header>
+
+            <form class="add-breeding-pigeon-form">
+                <section class="breeding-pigeon-grid">
+                    <article class="breeding-pigeon-card pigeon-info-card">
+                        <h3>Pigeon Information</h3>
+
+                        <div class="breeding-field full-field">
+                            <label for="ring-number">Ring Number</label>
+                            <input id="ring-number" type="text">
+                        </div>
+
+                        <div class="breeding-two-columns">
+                            <div class="breeding-field">
+                                <label for="gender">Gender</label>
+                                <select id="gender">
+                                    <option>Select gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+
+                            <div class="breeding-field">
+                                <label for="color">Color</label>
+                                <select id="color">
+                                    <option>Select color</option>
+                                    <option>Blue</option>
+                                    <option>Black</option>
+                                    <option>Red</option>
+                                    <option>Check</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="breeding-field bloodline-field">
+                            <label for="bloodline">Blood Line</label>
+                            <select id="bloodline">
+                                <option>Select bloodline</option>
+                                <option>Koopman</option>
+                                <option>Janssen</option>
+                                <option>Heremans</option>
+                            </select>
+                        </div>
+
+                        <div class="breeding-field note-field-breeding">
+                            <label for="note">Note (Optional)</label>
+                            <input id="note" type="text" placeholder="Add notes about this youngster">
+                        </div>
+                    </article>
+
+                    <div class="breeding-right-column">
+                        <article class="breeding-pigeon-card parents-information-card">
+                            <h3>Parents Information (Optional)</h3>
+
+                            <div class="parent-information-grid">
+                                <div class="breeding-field">
+                                    <label for="father">Father</label>
+                                    <input id="father" type="text">
+                                </div>
+
+                                <div class="breeding-field">
+                                    <label for="mother">Mother</label>
+                                    <input id="mother" type="text">
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="breeding-pigeon-card breeding-photo-card">
+                            <h3>Photo (Optional)</h3>
+
+                            <div class="breeding-upload-row">
+                                <input type="text" placeholder="Browse..." readonly>
+                                <button type="button">Upload</button>
+                            </div>
+
+                            <p>* JPEG, PNG up to 5 MB</p>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="breeding-pigeon-actions">
+                    <button type="button" class="breeding-cancel">Cancel</button>
+                    <button type="submit" class="breeding-save">
+                        <img src="images/dashboard-icon/add.png" alt="">
+                        <span>Save</span>
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>
