@@ -44,7 +44,7 @@
             $hatchedCount = (int)$stmt->fetchColumn();
 
             // Youngsters
-            $stmt = $dbHandler->prepare("SELECT COUNT(*) as total, SUM(CASE WHEN YEAR(date_of_birth) = 2026 THEN 1 ELSE 0 END) as born_this_year FROM pigeon WHERE loft_id = ? AND is_youngster = 1");
+            $stmt = $dbHandler->prepare("SELECT COUNT(*) as total, SUM(CASE WHEN YEAR(date_of_birth) = YEAR(CURDATE()) THEN 1 ELSE 0 END) as born_this_year FROM pigeon WHERE loft_id = ? AND is_youngster = 1");
             $stmt->execute([$loftId]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) {
@@ -74,6 +74,24 @@
             $stmt = $dbHandler->prepare("SELECT COUNT(*) FROM health_record hr JOIN pigeon p ON hr.pigeon_id = p.id WHERE p.loft_id = ?");
             $stmt->execute([$loftId]);
             $healthRecords = (int)$stmt->fetchColumn();
+
+            // Recent activity: latest registered youngsters and recorded eggs, newest first.
+            // Positional params because the loft id is bound twice.
+            $stmt = $dbHandler->prepare(
+                "(SELECT 'youngster' AS kind, p.id, p.band_number AS label, p.name AS extra, p.date_of_birth AS event_date
+                    FROM pigeon p
+                   WHERE p.loft_id = ?)
+                 UNION ALL
+                 (SELECT 'egg' AS kind, e.id, e.egg_number AS label, NULL AS extra, e.lay_date AS event_date
+                    FROM egg e
+                    JOIN breeding_record br ON e.breeding_record_id = br.id
+                    JOIN breeding_pair bp ON br.pair_id = bp.id
+                   WHERE bp.loft_id = ?)
+                 ORDER BY (event_date IS NULL), event_date DESC, id DESC
+                 LIMIT 5"
+            );
+            $stmt->execute([$loftId, $loftId]);
+            $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Dashboard query error: " . $e->getMessage());
         }
@@ -101,12 +119,12 @@
             </div>
             <nav class="menu">
                 <a href="dashboard.php" class="menu-item active"><img src="../images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
-                <a href="pair-management.php" class="menu-item"><img src="../images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
-                <a href="nest-management.php" class="menu-item"><img src="../images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="../pair-management.html" class="menu-item"><img src="../images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="../nest-management.html" class="menu-item"><img src="../images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
                 <a href="youngster-profile.php" class="menu-item"><img src="../images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
-                <a href="health-records.php" class="menu-item"><img src="../images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
-                <a href="race-results.php" class="menu-item"><img src="../images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
-                <a href="analytics-dashboard.php" class="menu-item"><img src="../images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="../health-records.html" class="menu-item"><img src="../images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="../race-results.html" class="menu-item"><img src="../images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="../analytics-dashboard.html" class="menu-item"><img src="../images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
                 <a href="#" class="menu-item"><img src="../images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
                 <a href="#" class="menu-item"><img src="../images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
                 <a href="#" class="menu-item"><img src="../images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
@@ -145,7 +163,7 @@
                 <article class="overview-panel">
                     <div class="section-title">
                         <h2>Loft Overview</h2>
-                        <button type="button" onclick="window.location.href='analytics-dashboard.php';">View Analytics</button>
+                        <button type="button" onclick="window.location.href='../analytics-dashboard.html';">View Analytics</button>
                     </div>
 
                     <div class="overview-cards">
@@ -199,7 +217,7 @@
                         <a href="./register-new-youngster.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Register Youngster</span></a>
                         <a href="./add-new-pigeon.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Pigeon</span></a>
                         <a href="./add-race-result.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race Result</span></a>
-                        <a href="./add-health-record.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
+                        <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
                     </div>
                 </article>
             </section>
@@ -235,7 +253,7 @@
                     <div class="alert red">
                         <img src="../images/dashboard-icon/warning.png" alt="">
                         <p><strong>Low survival rate alert</strong><br>Pair 1 has a survival rate below 70%</p>
-                        <button class="alert-button" onclick="window.location.href='pair-management.php';">View Pair</button>
+                        <button class="alert-button" onclick="window.location.href='../pair-management.html';">View Pair</button>
                     </div>
 
                     <div class="alert orange">
@@ -247,13 +265,13 @@
                     <div class="alert green">
                         <img src="../images/dashboard-icon/vaccination.png" alt="">
                         <p><strong>Vaccination due</strong><br>12 youngsters match PMV schedule</p>
-                        <button onclick="window.location.href='health-records.php';">View Health</button>
+                        <button onclick="window.location.href='../health-records.html';">View Health</button>
                     </div>
 
                     <div class="alert blue">
                         <img src="../images/dashboard-icon/race-event.png" alt="">
                         <p><strong>Upcoming race</strong><br>PIPR Training 5 is on 20 June 2026</p>
-                        <button onclick="window.location.href='race-results.php';">View Race</button>
+                        <button onclick="window.location.href='../race-results.html';">View Race</button>
                     </div>
                 </article>
 

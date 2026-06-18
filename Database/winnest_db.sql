@@ -7,6 +7,8 @@
 -- Server version: 12.0.2-MariaDB-ubu2404
 -- PHP Version: 8.2.29
 
+CREATE DATABASE IF NOT EXISTS `winnest_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `winnest_db`;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

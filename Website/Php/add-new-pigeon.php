@@ -358,9 +358,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </section>
 
                 <div class="breeding-pigeon-actions">
-                    <button type="button" class="breeding-cancel" onclick="window.location.href='pair-management.html';">Cancel</button>
+                    <button type="button" class="breeding-cancel" onclick="window.location.href='../pair-management.html';">Cancel</button>
                     <button type="submit" class="breeding-save">
-                        <img src="./images/dashboard-icon/add.png" alt="">
+                        <img src="../images/dashboard-icon/add.png" alt="">
                         <span>Save</span>
                     </button>
                 </div>

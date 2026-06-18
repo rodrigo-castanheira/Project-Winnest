@@ -3,24 +3,21 @@
 
     // Only handle form submissions.
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        header('Location: ../youngster-profile.php');
+        header('Location: youngster-profile.php');
         exit;
     }
 
-    $loftId = 1;
-
-    // The pigeon being edited (from the hidden field). Must be a positive int.
+    // The pigeon and its loft (from the hidden fields). Both must be positive ints.
     $id = (isset($_POST['id']) && ctype_digit((string) $_POST['id'])) ? (int) $_POST['id'] : 0;
-    if ($id <= 0) {
-        header('Location: ../youngster-profile.php');
+    $loftId = (isset($_POST['loft_id']) && ctype_digit((string) $_POST['loft_id'])) ? (int) $_POST['loft_id'] : 0;
+    if ($id <= 0 || $loftId <= 0) {
+        header('Location: youngster-profile.php');
         exit;
     }
 
-    // Same whitelists the register handler enforces.
-    $genderMap         = ['Male' => 'Cock', 'Female' => 'Hen', 'Unknown' => 'Unknown'];
-    $allowedColors     = ['Blue', 'Ash-Red', 'Black', 'Light Check', 'Dark Check'];
-    $allowedBloodlines = ['Koopman', 'Janssen', 'Heremans', 'Van den Bulck'];
-    $allowedStatuses   = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
+    // Gender map + status whitelist. Color and bloodline are free text (matches the add-pigeon form).
+    $genderMap       = ['Male' => 'Male', 'Female' => 'Female', 'Unknown' => 'Unknown'];
+    $allowedStatuses = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
 
     $field = function ($key) {
         $value = trim($_POST[$key] ?? '');
@@ -53,11 +50,17 @@
         $sex = 'Unknown';
     }
 
-    if ($color !== null && !in_array($color, $allowedColors, true)) {
-        $errors[] = 'color_invalid';
+    if ($color !== null) {
+        $color = strip_tags($color);
+        if (mb_strlen($color) > 100) {
+            $errors[] = 'color_too_long';
+        }
     }
-    if ($bloodline !== null && !in_array($bloodline, $allowedBloodlines, true)) {
-        $errors[] = 'bloodline_invalid';
+    if ($bloodline !== null) {
+        $bloodline = strip_tags($bloodline);
+        if (mb_strlen($bloodline) > 255) {
+            $errors[] = 'bloodline_too_long';
+        }
     }
     if ($status !== null && !in_array($status, $allowedStatuses, true)) {
         $errors[] = 'status_invalid';
@@ -87,7 +90,7 @@
 
     // On any error, return to the edit form with the reasons.
     if (!empty($errors)) {
-        header('Location: ../youngster-profile.php?id=' . $id . '&edit=1&error=' . implode(',', $errors));
+        header('Location: youngster-profile.php?id=' . $id . '&loft_id=' . $loftId . '&edit=1&error=' . implode(',', $errors));
         exit;
     }
 
@@ -116,6 +119,6 @@
         ':loft'        => $loftId,
     ]);
 
-    header('Location: ../youngster-profile.php?id=' . $id . '&saved=1');
+    header('Location: youngster-profile.php?id=' . $id . '&loft_id=' . $loftId . '&saved=1');
     exit;
 ?>

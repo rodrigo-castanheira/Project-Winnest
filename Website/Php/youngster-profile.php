@@ -5,14 +5,26 @@
     $currentUserId = $_SESSION['user_id'] ?? 1;
 
     // 1. Fetch all lofts for the user
-    $loftStmt = $dbHandler->prepare("SELECT id, loft_name, address, country FROM loft WHERE user_id = :user_id");
+    $loftStmt = $dbHandler->prepare("SELECT id, loft_name FROM loft WHERE user_id = :user_id");
     $loftStmt->execute([':user_id' => $currentUserId]);
     $userLofts = $loftStmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 2. Set Active Loft
-    $loftId = isset($_GET['loft_id']) ? (int) $_GET['loft_id'] : ($userLofts[0]['id'] ?? 2);
-    $currentLoft = array_filter($userLofts, fn($l) => $l['id'] == $loftId);
-    $currentLoft = !empty($currentLoft) ? reset($currentLoft) : null;
+    // Default to the first of the user's lofts that has a youngster, else their first loft.
+    if (isset($_GET['loft_id'])) {
+        $loftId = (int) $_GET['loft_id'];
+    } else {
+        $defStmt = $dbHandler->prepare(
+            "SELECT p.loft_id
+               FROM pigeon p
+               JOIN loft l ON p.loft_id = l.id
+              WHERE l.user_id = :user_id AND p.is_youngster = 1
+              ORDER BY p.loft_id LIMIT 1"
+        );
+        $defStmt->execute([':user_id' => $currentUserId]);
+        $defaultLoft = $defStmt->fetchColumn();
+        $loftId = $defaultLoft !== false ? (int) $defaultLoft : ($userLofts[0]['id'] ?? 0);
+    }
 
     // 3. Fetch Youngsters for the SELECTED loft
     $list = $dbHandler->prepare("SELECT id, band_number FROM pigeon WHERE loft_id = :loft AND is_youngster = 1 ORDER BY band_number");
@@ -53,6 +65,28 @@
     }
 
     $editMode = isset($_GET['edit']) && $pigeon !== null;
+
+    // Human-readable messages for the codes update-youngster.php returns via ?error=.
+    $editErrorMessages = [
+        'ring_required'      => 'Ring number is required.',
+        'ring_invalid'       => 'Ring number may only contain letters, digits, spaces and - /.',
+        'gender_invalid'     => 'Please select a valid gender.',
+        'color_too_long'     => 'Color must be 100 characters or fewer.',
+        'bloodline_too_long' => 'Bloodline must be 255 characters or fewer.',
+        'status_invalid'     => 'Please select a valid status.',
+        'date_invalid'       => 'Hatched date is not a valid date.',
+        'date_future'        => 'Hatched date cannot be in the future.',
+        'name_too_long'      => 'Name must be 255 characters or fewer.',
+        'note_too_long'      => 'Note must be 1000 characters or fewer.',
+    ];
+    $editErrors = [];
+    if ($editMode && isset($_GET['error'])) {
+        foreach (explode(',', $_GET['error']) as $code) {
+            if (isset($editErrorMessages[$code])) {
+                $editErrors[] = $editErrorMessages[$code];
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -138,7 +172,7 @@
                             <img src="../images/dashboard-icon/edit.png" alt="">Edit Youngster
                         </a>
                     <?php endif; ?>
-                    <button type="button" class="youngster-green-button"><img src="images/dashboard-icon/add.png"
+                    <button type="button" class="youngster-green-button"><img src="../images/dashboard-icon/add.png"
                             alt="">Record Race Result</button>
                 </div>
             </section>
@@ -153,11 +187,19 @@
             <section class="youngster-top-grid">
                 <article class="youngster-main-card">
                     <?php if ($editMode): ?>
-                    <form method="post" action="/update-youngster.php" class="youngster-edit-form">
+                    <form method="post" action="update-youngster.php" class="youngster-edit-form">
                         <input type="hidden" name="id" value="<?= e($pigeon['id']) ?>">
+                        <input type="hidden" name="loft_id" value="<?= e($loftId) ?>">
                         <div class="youngster-title-row">
                             <h2>Edit Youngster</h2>
                         </div>
+                        <?php if (!empty($editErrors)): ?>
+                        <div class="edit-errors">
+                            <?php foreach ($editErrors as $msg): ?>
+                            <p class="field-error"><?= e($msg) ?></p>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
                         <label for="edit-ring">Ring Number</label>
                         <input id="edit-ring" type="text" name="ring_number" value="<?= e($pigeon['band_number']) ?>">
                         <label for="edit-name">Name</label>
@@ -170,7 +212,7 @@
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                        <<label for="edit-color">Color</label>
+                        <label for="edit-color">Color</label>
                         <input id="edit-color" type="text" name="color" value="<?= e($pigeon['color']) ?>" placeholder="Enter color">
 
                         <label for="edit-date">Hatched Date</label>
