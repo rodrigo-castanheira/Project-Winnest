@@ -1,211 +1,199 @@
 <?php
-require(__DIR__ . '/dbHandler.php');
 
-// ── Pull lofts for the dropdown ──────────────────────────────────────────────
-$lofts = $dbHandler->query("SELECT id, loft_name FROM loft ORDER BY loft_name")->fetchAll(PDO::FETCH_ASSOC);
-
-// ── Colour options (shared by father & mother) ───────────────────────────────
-$colors = [
-    'Blue (Blauw)',
-    'Ash-Red (Vaal)',
-    'Black (Donker)',
-    'Recessive Red (Rood)',
-    'Light Check (Lichtkras)',
-    'Dark Check (Donkerkras)',
-];
-
-// ── Helper: safely escape output ─────────────────────────────────────────────
-function e($v) {
-    if ($v === null) {
-        $v = '';
-    }
-    return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
-}
-
-// ── Initialise field values & errors ─────────────────────────────────────────
-$fields = [
-    'father_ring'      => '',
-    'father_name'      => '',
-    'father_bloodline' => '',
-    'father_color'     => '',
-    'mother_ring'      => '',
-    'mother_name'      => '',
-    'mother_bloodline' => '',
-    'mother_color'     => '',
-    'paired_date'      => '',
-    'loft_id'          => '',
-    'notes'            => '',
-];
-$errors  = [];
-$success = false;
-
-// ── Handle POST ───────────────────────────────────────────────────────────────
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Sanitise & collect every field
-    foreach ($fields as $key => $_) {
-        if (isset($_POST[$key])) {
-            $fields[$key] = trim($_POST[$key]);
-        } else {
-            $fields[$key] = '';
-        }
-    }
-
-    // ── Validation ────────────────────────────────────────────────────────────
-
-    // Father ring number
-    if ($fields['father_ring'] === '') {
-        $errors['father_ring'] = 'Father ring number is required.';
-    } elseif (!preg_match('/^[A-Z0-9\-\/\. ]{2,30}$/i', $fields['father_ring'])) {
-        $errors['father_ring'] = 'Ring number may only contain letters, digits, spaces and - / .';
-    }
-
-    // Father colour
-    if ($fields['father_color'] === '') {
-        $errors['father_color'] = 'Please select a colour for the father.';
-    }
-
-    // Mother ring number
-    if ($fields['mother_ring'] === '') {
-        $errors['mother_ring'] = 'Mother ring number is required.';
-    } elseif (!preg_match('/^[A-Z0-9\-\/\. ]{2,30}$/i', $fields['mother_ring'])) {
-        $errors['mother_ring'] = 'Ring number may only contain letters, digits, spaces and - / .';
-    }
-
-    // Mother colour
-    if ($fields['mother_color'] === '') {
-        $errors['mother_color'] = 'Please select a colour for the mother.';
-    }
-
-    // Father and mother must be different pigeons
-    if ($fields['father_ring'] !== '' && $fields['mother_ring'] !== '') {
-        if (strtoupper($fields['father_ring']) === strtoupper($fields['mother_ring'])) {
-            $errors['mother_ring'] = 'Father and mother cannot have the same ring number.';
-        }
-    }
-
-    // Loft is required and must match a real DB row
-    if ($fields['loft_id'] === '') {
-        $errors['loft_id'] = 'Please select a loft.';
-    } else {
-        $loftValid = false;
-        foreach ($lofts as $l) {
-            if ($l['id'] == $fields['loft_id']) {
-                $loftValid = true;
-                break;
-            }
-        }
-        if (!$loftValid) {
-            $errors['loft_id'] = 'Invalid loft selected.';
-        }
-    }
-
-    // Paired date is optional but must be valid and not in the future if supplied
-    if ($fields['paired_date'] !== '') {
-        $dt = DateTime::createFromFormat('Y-m-d', $fields['paired_date']);
-        if (!$dt || $dt->format('Y-m-d') !== $fields['paired_date']) {
-            $errors['paired_date'] = 'Invalid date format.';
-        } elseif ($dt > new DateTime()) {
-            $errors['paired_date'] = 'Paired date cannot be in the future.';
-        }
-    }
-
-    // ── Save to DB if no validation errors ───────────────────────────────────
-    if (empty($errors)) {
-        try {
-            $dbHandler->beginTransaction();
-
-            // Upsert father (Cock) — insert or update if band_number already exists
-            $upsert = $dbHandler->prepare("
-                INSERT INTO pigeon (loft_id, band_number, name, bloodline, color, sex)
-                     VALUES (:loft, :band, :name, :bloodline, :color, :sex)
-                ON DUPLICATE KEY UPDATE
-                     name      = IF(VALUES(name) <> '', VALUES(name), name),
-                     bloodline = IF(VALUES(bloodline) <> '', VALUES(bloodline), bloodline),
-                     color     = IF(VALUES(color) <> '', VALUES(color), color)
-            ");
-
-            $upsert->execute([
-                ':loft'      => $fields['loft_id'],
-                ':band'      => strtoupper($fields['father_ring']),
-                ':name'      => $fields['father_name'],
-                ':bloodline' => $fields['father_bloodline'],
-                ':color'     => $fields['father_color'],
-                ':sex'       => 'Cock',
-            ]);
-
-            $sireId = (int) $dbHandler->lastInsertId();
-
-            // If lastInsertId is 0 the row already existed — look it up
-            if ($sireId === 0) {
-                $s = $dbHandler->prepare("SELECT id FROM pigeon WHERE band_number = ?");
-                $s->execute([strtoupper($fields['father_ring'])]);
-                $sireId = (int) $s->fetchColumn();
-            }
-
-            // Upsert mother (Hen)
-            $upsert->execute([
-                ':loft'      => $fields['loft_id'],
-                ':band'      => strtoupper($fields['mother_ring']),
-                ':name'      => $fields['mother_name'],
-                ':bloodline' => $fields['mother_bloodline'],
-                ':color'     => $fields['mother_color'],
-                ':sex'       => 'Hen',
-            ]);
-
-            $damId = (int) $dbHandler->lastInsertId();
-
-            if ($damId === 0) {
-                $s = $dbHandler->prepare("SELECT id FROM pigeon WHERE band_number = ?");
-                $s->execute([strtoupper($fields['mother_ring'])]);
-                $damId = (int) $s->fetchColumn();
-            }
-
-            // Determine nullable values before the insert
-            if ($fields['paired_date'] !== '') {
-                $pairedDate = $fields['paired_date'];
-            } else {
-                $pairedDate = null;
-            }
-
-            if ($fields['notes'] !== '') {
-                $notes = $fields['notes'];
-            } else {
-                $notes = null;
-            }
-
-            // Insert the breeding pair
-            $stmt = $dbHandler->prepare("
-                INSERT INTO breeding_pair (loft_id, sire_id, dam_id, pairing_date, notes)
-                     VALUES (:loft, :sire, :dam, :date, :notes)
-            ");
-            $stmt->execute([
-                ':loft'  => $fields['loft_id'],
-                ':sire'  => $sireId,
-                ':dam'   => $damId,
-                ':date'  => $pairedDate,
-                ':notes' => $notes,
-            ]);
-
-            $dbHandler->commit();
-            $success = true;
-
-            // Reset form fields after a successful save
-            foreach ($fields as $key => $_) {
-                $fields[$key] = '';
-            }
-
-        } catch (PDOException $ex) {
-            $dbHandler->rollBack();
-
-            if ($ex->getCode() === '23000') {
-                $errors['general'] = 'This pair already exists in the selected loft.';
-            } else {
-                $errors['general'] = 'Database error: ' . e($ex->getMessage());
-            }
-        }
-    }
-}
+    require(__DIR__.'/dbHandler.php');
+ 
+	$lofts = $dbHandler->query("SELECT id, loft_name FROM loft ORDER BY loft_name")->fetchAll(PDO::FETCH_ASSOC);
+ 
+	$colors = [
+		'Blue (Blauw)',
+		'Ash-Red (Vaal)',
+		'Black (Donker)',
+		'Recessive Red (Rood)',
+		'Light Check (Lichtkras)',
+		'Dark Check (Donkerkras)',
+	];
+ 
+	function e($v){
+		if($v === null){
+			$v = '';
+		}
+		return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+	}
+ 
+	$fields = [
+		'fatherRing'      => '',
+		'fatherName'      => '',
+		'fatherBloodline' => '',
+		'fatherColor'     => '',
+		'motherRing'      => '',
+		'motherName'      => '',
+		'motherBloodline' => '',
+		'motherColor'     => '',
+		'pairedDate'      => '',
+		'loftId'          => '',
+		'notes'           => '',
+	];
+	$errors = [];
+	$success = false;
+ 
+	if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+		foreach($fields as $key => $value){
+			if(isset($_POST[$key])){
+				$fields[$key] = trim($_POST[$key]);
+			}
+			else{
+				$fields[$key] = '';
+			}
+		}
+ 
+		if($fields['fatherRing'] === ''){
+			$errors['fatherRing'] = 'Father ring number is required.';
+		}
+		elseif(!preg_match('/^[A-Z0-9\-\/\. ]{2,30}$/i', $fields['fatherRing'])){
+			$errors['fatherRing'] = 'Ring number may only contain letters, digits, spaces and - / .';
+		}
+ 
+		if($fields['fatherColor'] === ''){
+			$errors['fatherColor'] = 'Please select a colour for the father.';
+		}
+ 
+		if($fields['motherRing'] === ''){
+			$errors['motherRing'] = 'Mother ring number is required.';
+		}
+		elseif(!preg_match('/^[A-Z0-9\-\/\. ]{2,30}$/i', $fields['motherRing'])){
+			$errors['motherRing'] = 'Ring number may only contain letters, digits, spaces and - / .';
+		}
+ 
+		if($fields['motherColor'] === ''){
+			$errors['motherColor'] = 'Please select a colour for the mother.';
+		}
+ 
+		if($fields['fatherRing'] !== '' && $fields['motherRing'] !== ''){
+			if(strtoupper($fields['fatherRing']) === strtoupper($fields['motherRing'])){
+				$errors['motherRing'] = 'Father and mother cannot have the same ring number.';
+			}
+		}
+ 
+		if($fields['loftId'] === ''){
+			$errors['loftId'] = 'Please select a loft.';
+		}
+		else{
+			$loftValid = false;
+			foreach($lofts as $l){
+				if($l['id'] == $fields['loftId']){
+					$loftValid = true;
+					break;
+				}
+			}
+			if(!$loftValid){
+				$errors['loftId'] = 'Invalid loft selected.';
+			}
+		}
+ 
+		if($fields['pairedDate'] !== ''){
+			$dt = DateTime::createFromFormat('Y-m-d', $fields['pairedDate']);
+			if(!$dt || $dt->format('Y-m-d') !== $fields['pairedDate']){
+				$errors['pairedDate'] = 'Invalid date format.';
+			}
+			elseif($dt > new DateTime()){
+				$errors['pairedDate'] = 'Paired date cannot be in the future.';
+			}
+		}
+ 
+		if(empty($errors)){
+			try{
+				$dbHandler->beginTransaction();
+ 
+				$upsert = $dbHandler->prepare("
+					INSERT INTO pigeon (loft_id, band_number, name, bloodline, color, sex)
+						 VALUES (:loft, :band, :name, :bloodline, :color, :sex)
+					ON DUPLICATE KEY UPDATE
+						 name      = IF(VALUES(name) <> '', VALUES(name), name),
+						 bloodline = IF(VALUES(bloodline) <> '', VALUES(bloodline), bloodline),
+						 color     = IF(VALUES(color) <> '', VALUES(color), color)
+				");
+ 
+				$upsert->execute([
+					':loft'      => $fields['loftId'],
+					':band'      => strtoupper($fields['fatherRing']),
+					':name'      => $fields['fatherName'],
+					':bloodline' => $fields['fatherBloodline'],
+					':color'     => $fields['fatherColor'],
+					':sex'       => 'Cock',
+				]);
+ 
+				$sireId = (int) $dbHandler->lastInsertId();
+ 
+				if($sireId === 0){
+					$s = $dbHandler->prepare("SELECT id FROM pigeon WHERE band_number = ?");
+					$s->execute([strtoupper($fields['fatherRing'])]);
+					$sireId = (int) $s->fetchColumn();
+				}
+ 
+				$upsert->execute([
+					':loft'      => $fields['loftId'],
+					':band'      => strtoupper($fields['motherRing']),
+					':name'      => $fields['motherName'],
+					':bloodline' => $fields['motherBloodline'],
+					':color'     => $fields['motherColor'],
+					':sex'       => 'Hen',
+				]);
+ 
+				$damId = (int) $dbHandler->lastInsertId();
+ 
+				if($damId === 0){
+					$s = $dbHandler->prepare("SELECT id FROM pigeon WHERE band_number = ?");
+					$s->execute([strtoupper($fields['motherRing'])]);
+					$damId = (int) $s->fetchColumn();
+				}
+ 
+				if($fields['pairedDate'] !== ''){
+					$pairedDate = $fields['pairedDate'];
+				}
+				else{
+					$pairedDate = null;
+				}
+ 
+				if($fields['notes'] !== ''){
+					$notes = $fields['notes'];
+				}
+				else{
+					$notes = null;
+				}
+ 
+				$stmt = $dbHandler->prepare("
+					INSERT INTO breeding_pair (loft_id, sire_id, dam_id, pairing_date, notes)
+						 VALUES (:loft, :sire, :dam, :date, :notes)
+				");
+				$stmt->execute([
+					':loft'  => $fields['loftId'],
+					':sire'  => $sireId,
+					':dam'   => $damId,
+					':date'  => $pairedDate,
+					':notes' => $notes,
+				]);
+ 
+				$dbHandler->commit();
+				$success = true;
+ 
+				foreach($fields as $key => $value){
+					$fields[$key] = '';
+				}
+ 
+			}
+			catch(PDOException $ex){
+				$dbHandler->rollBack();
+ 
+				if($ex->getCode() === '23000'){
+					$errors['general'] = 'This pair already exists in the selected loft.';
+				}
+				else{
+					$errors['general'] = 'Database error: '.e($ex->getMessage());
+				}
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -271,46 +259,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="../images/pigeons/pigeon1.png" alt="Father pigeon" class="pigeon-image">
                         <div class="fields">
 
-                            <label for="father-ring">Ring Number <span class="required">*</span></label>
-                            <?php if (isset($errors['father_ring'])) { ?>
-                            <input id="father-ring" name="father_ring" type="text"
-                                   value="<?php echo e($fields['father_ring']); ?>"
+                            <label for="fatherRing">Ring Number <span class="required">*</span></label>
+                            <?php if (isset($errors['fatherRing'])) { ?>
+                            <input id="fatherRing" name="fatherRing" type="text"
+                                   value="<?php echo e($fields['fatherRing']); ?>"
                                    class="input-error"
                                    placeholder="e.g. NL-2024-1234567">
-                            <span class="field-error"><?php echo e($errors['father_ring']); ?></span>
+                            <span class="field-error"><?php echo e($errors['fatherRing']); ?></span>
                             <?php } else { ?>
-                            <input id="father-ring" name="father_ring" type="text"
-                                   value="<?php echo e($fields['father_ring']); ?>"
+                            <input id="fatherRing" name="fatherRing" type="text"
+                                   value="<?php echo e($fields['fatherRing']); ?>"
                                    placeholder="e.g. NL-2024-1234567">
                             <?php } ?>
 
-                            <label for="father-name">Name (Optional)</label>
-                            <input id="father-name" name="father_name" type="text"
-                                   value="<?php echo e($fields['father_name']); ?>"
+                            <label for="fatherName">Name (Optional)</label>
+                            <input id="fatherName" name="fatherName" type="text"
+                                   value="<?php echo e($fields['fatherName']); ?>"
                                    placeholder="e.g. Blauwe Crack">
 
-                            <label for="father-bloodline">Bloodline</label>
-                            <input id="father-bloodline" name="father_bloodline" type="text"
-                                   value="<?php echo e($fields['father_bloodline']); ?>"
+                            <label for="fatherBloodline">Bloodline</label>
+                            <input id="fatherBloodline" name="fatherBloodline" type="text"
+                                   value="<?php echo e($fields['fatherBloodline']); ?>"
                                    placeholder="e.g. Koopman">
 
-                            <label for="father-color">Color <span class="required">*</span></label>
-                            <?php if (isset($errors['father_color'])) { ?>
-                            <select id="father-color" name="father_color" class="input-error">
+                            <label for="fatherColor">Color <span class="required">*</span></label>
+                            <?php if (isset($errors['fatherColor'])) { ?>
+                            <select id="fatherColor" name="fatherColor" class="input-error">
                             <?php } else { ?>
-                            <select id="father-color" name="father_color">
+                            <select id="fatherColor" name="fatherColor">
                             <?php } ?>
                                 <option value="">Select color</option>
                                 <?php foreach ($colors as $c) { ?>
-                                <?php if ($fields['father_color'] === $c) { ?>
+                                <?php if ($fields['fatherColor'] === $c) { ?>
                                 <option value="<?php echo e($c); ?>" selected><?php echo e($c); ?></option>
                                 <?php } else { ?>
                                 <option value="<?php echo e($c); ?>"><?php echo e($c); ?></option>
                                 <?php } ?>
                                 <?php } ?>
                             </select>
-                            <?php if (isset($errors['father_color'])) { ?>
-                            <span class="field-error"><?php echo e($errors['father_color']); ?></span>
+                            <?php if (isset($errors['fatherColor'])) { ?>
+                            <span class="field-error"><?php echo e($errors['fatherColor']); ?></span>
                             <?php } ?>
 
                         </div>
@@ -324,46 +312,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <img src="../images/pigeons/pigeon2.png" alt="Mother pigeon" class="pigeon-image">
                         <div class="fields">
 
-                            <label for="mother-ring">Ring Number <span class="required">*</span></label>
-                            <?php if (isset($errors['mother_ring'])) { ?>
-                            <input id="mother-ring" name="mother_ring" type="text"
-                                   value="<?php echo e($fields['mother_ring']); ?>"
+                            <label for="motherRing">Ring Number <span class="required">*</span></label>
+                            <?php if (isset($errors['motherRing'])) { ?>
+                            <input id="motherRing" name="motherRing" type="text"
+                                   value="<?php echo e($fields['motherRing']); ?>"
                                    class="input-error"
                                    placeholder="e.g. NL-2024-7654321">
-                            <span class="field-error"><?php echo e($errors['mother_ring']); ?></span>
+                            <span class="field-error"><?php echo e($errors['motherRing']); ?></span>
                             <?php } else { ?>
-                            <input id="mother-ring" name="mother_ring" type="text"
-                                   value="<?php echo e($fields['mother_ring']); ?>"
+                            <input id="motherRing" name="motherRing" type="text"
+                                   value="<?php echo e($fields['motherRing']); ?>"
                                    placeholder="e.g. NL-2024-7654321">
                             <?php } ?>
 
-                            <label for="mother-name">Name (Optional)</label>
-                            <input id="mother-name" name="mother_name" type="text"
-                                   value="<?php echo e($fields['mother_name']); ?>"
+                            <label for="motherName">Name (Optional)</label>
+                            <input id="motherName" name="motherName" type="text"
+                                   value="<?php echo e($fields['motherName']); ?>"
                                    placeholder="e.g. Blauwe Duivin">
 
-                            <label for="mother-bloodline">Bloodline</label>
-                            <input id="mother-bloodline" name="mother_bloodline" type="text"
-                                   value="<?php echo e($fields['mother_bloodline']); ?>"
+                            <label for="motherBloodline">Bloodline</label>
+                            <input id="motherBloodline" name="motherBloodline" type="text"
+                                   value="<?php echo e($fields['motherBloodline']); ?>"
                                    placeholder="e.g. Koopman">
 
-                            <label for="mother-color">Color <span class="required">*</span></label>
-                            <?php if (isset($errors['mother_color'])) { ?>
-                            <select id="mother-color" name="mother_color" class="input-error">
+                            <label for="motherColor">Color <span class="required">*</span></label>
+                            <?php if (isset($errors['motherColor'])) { ?>
+                            <select id="motherColor" name="motherColor" class="input-error">
                             <?php } else { ?>
-                            <select id="mother-color" name="mother_color">
+                            <select id="motherColor" name="motherColor">
                             <?php } ?>
                                 <option value="">Select color</option>
                                 <?php foreach ($colors as $c) { ?>
-                                <?php if ($fields['mother_color'] === $c) { ?>
+                                <?php if ($fields['motherColor'] === $c) { ?>
                                 <option value="<?php echo e($c); ?>" selected><?php echo e($c); ?></option>
                                 <?php } else { ?>
                                 <option value="<?php echo e($c); ?>"><?php echo e($c); ?></option>
                                 <?php } ?>
                                 <?php } ?>
                             </select>
-                            <?php if (isset($errors['mother_color'])) { ?>
-                            <span class="field-error"><?php echo e($errors['mother_color']); ?></span>
+                            <?php if (isset($errors['motherColor'])) { ?>
+                            <span class="field-error"><?php echo e($errors['motherColor']); ?></span>
                             <?php } ?>
 
                         </div>
@@ -377,38 +365,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="pair-row">
 
                     <div class="pair-field date-field">
-                        <label for="paired-date">Paired Date</label>
-                        <?php if (isset($errors['paired_date'])) { ?>
-                        <input id="paired-date" name="paired_date" type="date"
-                               value="<?php echo e($fields['paired_date']); ?>"
+                        <label for="pairedDate">Paired Date</label>
+                        <?php if (isset($errors['pairedDate'])) { ?>
+                        <input id="pairedDate" name="pairedDate" type="date"
+                               value="<?php echo e($fields['pairedDate']); ?>"
                                class="input-error"
                                max="<?php echo date('Y-m-d'); ?>">
-                        <span class="field-error"><?php echo e($errors['paired_date']); ?></span>
+                        <span class="field-error"><?php echo e($errors['pairedDate']); ?></span>
                         <?php } else { ?>
-                        <input id="paired-date" name="paired_date" type="date"
-                               value="<?php echo e($fields['paired_date']); ?>"
+                        <input id="pairedDate" name="pairedDate" type="date"
+                               value="<?php echo e($fields['pairedDate']); ?>"
                                max="<?php echo date('Y-m-d'); ?>">
                         <?php } ?>
                     </div>
 
                     <div class="pair-field loft-field">
-                        <label for="loft">Loft <span class="required">*</span></label>
-                        <?php if (isset($errors['loft_id'])) { ?>
-                        <select id="loft" name="loft_id" class="input-error">
+                        <label for="loftId">Loft <span class="required">*</span></label>
+                        <?php if (isset($errors['loftId'])) { ?>
+                        <select id="loftId" name="loftId" class="input-error">
                         <?php } else { ?>
-                        <select id="loft" name="loft_id">
+                        <select id="loftId" name="loftId">
                         <?php } ?>
                             <option value="">Select Loft</option>
                             <?php foreach ($lofts as $l) { ?>
-                            <?php if ($fields['loft_id'] == $l['id']) { ?>
+                            <?php if ($fields['loftId'] == $l['id']) { ?>
                             <option value="<?php echo e($l['id']); ?>" selected><?php echo e($l['loft_name']); ?></option>
                             <?php } else { ?>
                             <option value="<?php echo e($l['id']); ?>"><?php echo e($l['loft_name']); ?></option>
                             <?php } ?>
                             <?php } ?>
                         </select>
-                        <?php if (isset($errors['loft_id'])) { ?>
-                        <span class="field-error"><?php echo e($errors['loft_id']); ?></span>
+                        <?php if (isset($errors['loftId'])) { ?>
+                        <span class="field-error"><?php echo e($errors['loftId']); ?></span>
                         <?php } ?>
                     </div>
 

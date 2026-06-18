@@ -1,4 +1,5 @@
 <?php
+
     require __DIR__ . '/dbHandler.php';
 
     // Only handle form submissions
@@ -11,12 +12,11 @@
     // Hardcoded server-side so it can never be set from the form.
     $loftId = 1;
 
-    // Allowed values. Every submitted value is checked against these
-    // whitelists, so tampered input from dev tools is rejected here.
-    $genderMap         = ['Male' => 'Cock', 'Female' => 'Hen', 'Unknown' => 'Unknown'];
+    // Allowed whitelists matching your updated database ENUM values
+    $genderMap         = ['Male' => 'Male', 'Female' => 'Female', 'Unknown' => 'Unknown'];
     $allowedColors     = ['Blue', 'Ash-Red', 'Black', 'Light Check', 'Dark Check'];
     $allowedBloodlines = ['Koopman', 'Janssen', 'Heremans', 'Van den Bulck'];
-    $allowedStatuses   = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
+    $allowedStatuses   = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead', 'Active'];
 
     // Read a field, trimming it and treating "Select ..." placeholders as empty.
     $field = function ($key) {
@@ -42,15 +42,19 @@
         $errors[] = 'ring_required';
     } elseif (!preg_match('/^[A-Za-z0-9\-\/ ]{1,100}$/', $bandNumber)) {
         $errors[] = 'ring_invalid';
+    } else {
+        // Optimization: Check for duplicate ring numbers within this loft
+        $dupCheck = $dbHandler->prepare("SELECT COUNT(*) FROM pigeon WHERE band_number = :band AND loft_id = :loft");
+        $dupCheck->execute([':band' => $bandNumber, ':loft' => $loftId]);
+        if ((int)$dupCheck->fetchColumn() > 0) {
+            $errors[] = 'ring_duplicate';
+        }
     }
 
-    // Gender: defaults to Unknown when not chosen; any other value is tampering.
-    if ($gender === null) {
-        $sex = 'Unknown';
-    } elseif (isset($genderMap[$gender])) {
-        $sex = $genderMap[$gender];
-    } else {
-        $errors[] = 'gender_invalid';
+    // Gender: defaults to Unknown when not chosen
+   $sex = $_POST['gender'] ?? 'Unknown'; 
+
+    if (!in_array($sex, ['Male', 'Female', 'Unknown'])) {
         $sex = 'Unknown';
     }
 
@@ -61,7 +65,11 @@
     if ($bloodline !== null && !in_array($bloodline, $allowedBloodlines, true)) {
         $errors[] = 'bloodline_invalid';
     }
-    if ($status !== null && !in_array($status, $allowedStatuses, true)) {
+    
+    // Status fallback: handle fallback logic if nothing is selected
+    if ($status === null) {
+        $status = 'Active';
+    } elseif (!in_array($status, $allowedStatuses, true)) {
         $errors[] = 'status_invalid';
     }
 
@@ -91,24 +99,26 @@
         }
     }
 
-    // Hatched-from egg: optional. If given, it must be a real egg id
-    // that belongs to this loft (FK target), otherwise reject.
-    if ($eggId !== null) {
-        if (!ctype_digit($eggId)) {
-            $errors[] = 'egg_invalid';
-        } else {
-            $check = $dbHandler->prepare(
-                "SELECT COUNT(*) FROM egg e
-                   JOIN breeding_record br ON e.breeding_record_id = br.id
-                   JOIN breeding_pair bp ON br.pair_id = bp.id
-                  WHERE e.id = :id AND bp.loft_id = :loft"
-            );
-            $check->execute([':id' => (int) $eggId, ':loft' => $loftId]);
-            if ((int) $check->fetchColumn() === 0) {
-                $errors[] = 'egg_not_found';
-            } else {
-                $eggId = (int) $eggId;
-            }
+    // Hatched-from egg: optional validation.
+    $eggId = $_POST['hatched_from_egg_id'] ?? null;
+
+    if ($eggId) {
+        // This single query fetches the exact lineage context behind the scenes!
+        $lineageLookup = $dbHandler->prepare("
+            SELECT bp.loft_id, br.pair_id, br.nest_id 
+              FROM egg e
+              JOIN breeding_record br ON e.breeding_record_id = br.id
+              JOIN breeding_pair bp ON br.pair_id = bp.id
+             WHERE e.id = :egg_id
+        ");
+        $lineageLookup->execute([':egg_id' => $eggId]);
+        $lineage = $lineageLookup->fetch(PDO::FETCH_ASSOC);
+
+        if ($lineage) {
+            $loftId = $lineage['loft_id'];
+            // If your pigeon table contains explicit columns for pair or nest:
+            // $pairId = $lineage['pair_id'];
+            // $nestId = $lineage['nest_id'];
         }
     }
 
@@ -118,10 +128,11 @@
         exit;
     }
 
+    // INSERT statement explicitly including 'is_youngster' 
     $sql = "INSERT INTO pigeon
-                (loft_id, band_number, name, sex, bloodline, color, status, date_of_birth, notes, hatched_from_egg_id)
+                (loft_id, band_number, name, sex, bloodline, color, status, is_youngster, date_of_birth, notes, hatched_from_egg_id)
             VALUES
-                (:loft_id, :band_number, :name, :sex, :bloodline, :color, :status, :dob, :notes, :egg_id)";
+                (:loft_id, :band_number, :name, :sex, :bloodline, :color, :status, 1, :dob, :notes, :egg_id)";
 
     $stmt = $dbHandler->prepare($sql);
     $stmt->execute([

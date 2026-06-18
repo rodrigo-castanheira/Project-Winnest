@@ -4,8 +4,7 @@
     // The youngster belongs to the WINNEST LOFT (seeded as loft_id = 1).
     $loftId = 1;
 
-    // Eggs belonging to this loft, for the "Hatched From Egg" dropdown.
-    // (Empty until the breeding/egg flow is used.)
+    // Fetch ONLY the eggs belonging to this loft.
     $eggStmt = $dbHandler->prepare(
         "SELECT e.id, e.egg_number
            FROM egg e
@@ -71,12 +70,12 @@
             <header>
                 <h1>Register New Youngster</h1>
             </header>
-            <form action="Php/register-youngster.php" method="POST">
+            <form action="/Innovate-Test/Website/Php/register-youngster.php" method="POST">
                 <section class="form-grid">
                     <article class="card youngster-card">
                         <h3>Youngster Information</h3>
                         <label for="ring-number">Ring Number</label>
-                        <input id="ring-number" name="ring_number" type="text">
+                        <input id="ring-number" name="ring_number" type="text" required>
                         <label for="name">Name (Optional)</label>
                         <input id="name" name="name" type="text" placeholder="Pigeon name">
                         <div class="two-columns">
@@ -134,42 +133,9 @@
                     <div class="right-column">
                         <article class="card parents-card">
                             <h3>Parents Information</h3>
-                            <div class="two-columns">
-                                <div class="field">
-                                    <label for="pair-id">Pair ID</label>
-                                    <select id="pair-id">
-                                        <option>Select pair ID</option>
-                                        <option>PAIR-001</option>
-                                        <option>PAIR-002</option>
-                                        <option>PAIR-003</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="nest-id">Nest ID</label>
-                                    <select id="nest-id">
-                                        <option>Select nest ID</option>
-                                        <option>NEST-001</option>
-                                        <option>NEST-002</option>
-                                        <option>NEST-003</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="round-field">
-                                <label for="breeding-round">Breeding Round</label>
-                                <select id="breeding-round">
-                                    <option>Select round</option>
-                                    <option>Round 1</option>
-                                    <option>Round 2</option>
-                                    <option>Round 3</option>
-                                    <option>Round 4</option>
-                                    <option>Round 5</option>
-                                    <option>Round 6</option>
-                                    <option>Round 7</option>
-                                </select>
-                            </div>
-                            <div class="round-field">
-                                <label for="hatched-from-egg">Hatched From Egg (Optional)</label>
-                                <select id="hatched-from-egg" name="hatched_from_egg_id">
+                                <label for="hatched-from-egg">Hatched From Egg <span style="color: red;">*</span></label>
+                                <select id="hatched-from-egg" name="hatched_from_egg_id" required>
                                     <option value="">Select egg</option>
                                     <?php foreach ($eggs as $egg): ?>
                                         <option value="<?= e($egg['id']) ?>">
@@ -192,7 +158,7 @@
                 <div class="actions register-actions">
                     <button type="button" class="cancel">Cancel</button>
                     <button type="submit" class="save register-save">
-                        <img src="images/dashboard-icon/add.png" alt="">
+                        <img src="../images/dashboard-icon/add.png" alt="">
                         <span>Register</span>
                     </button>
                 </div>

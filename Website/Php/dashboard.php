@@ -123,7 +123,7 @@
                         alt="Youngsters"><span>Youngsters</span></a>
                 <a href="health-records.html" class="menu-item"><img src="../images/menu-icon/health.png"
                         alt="Health Records"><span>Health Records</span></a>
-                <a href="race-results.html" class="menu-item"><img src="../images/menu-icon/race.png"
+                <a href="race-results.php" class="menu-item"><img src="../images/menu-icon/race.png"
                         alt="Race Results"><span>Race Results</span></a>
                 <a href="analytics-dashboard.html" class="menu-item"><img src="../images/menu-icon/analytics.png"
                         alt="Analytics"><span>Analytics</span></a>
@@ -224,7 +224,7 @@
                                 Egg</span></a>
                         <a href="./register-new-youngster.php"><img src="../images/dashboard-icon/add.png"
                                 alt=""><span>Register Youngster</span></a>
-                        <a href="../add-race-result.html"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race
+                        <a href="./add-race-result.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race
                                 Result</span></a>
                         <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
                         <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Calendar</span></a>

@@ -98,7 +98,7 @@
                         Staff</span></a>
             </nav>
             <div class="loft-card">
-                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <img src="../images/pigeons/koopman-loft.png" alt="Winnest loft">
                 <h3>WINNEST LOFT 🇳🇱</h3>
                 <p>Ermerveen 17</p>
                 <p>7814 VB Emmen</p>
@@ -122,7 +122,7 @@
                     </form>
                     <?php if (!$editMode && $pigeon !== null): ?>
                     <a class="youngster-edit-button" href="?id=<?= e($selectedId) ?>&edit=1"><img
-                            src="images/dashboard-icon/edit.png" alt="">Edit Youngster</a>
+                            src="../images/dashboard-icon/edit.png" alt="">Edit Youngster</a>
                     <?php endif; ?>
                     <button type="button" class="youngster-green-button"><img src="images/dashboard-icon/add.png"
                             alt="">Record Race Result</button>
@@ -139,7 +139,7 @@
             <section class="youngster-top-grid">
                 <article class="youngster-main-card">
                     <?php if ($editMode): ?>
-                    <form method="post" action="Php/update-youngster.php" class="youngster-edit-form">
+                    <form method="post" action="/update-youngster.php" class="youngster-edit-form">
                         <input type="hidden" name="id" value="<?= e($pigeon['id']) ?>">
                         <div class="youngster-title-row">
                             <h2>Edit Youngster</h2>
@@ -171,7 +171,7 @@
                         <span><?= e(orDash($pigeon['status'])) ?></span>
                     </div>
                     <div class="youngster-info-row">
-                        <img src="<?= $pigeon['photo_url'] ? e($pigeon['photo_url']) : 'images/pigeons/pigeon3.png' ?>"
+                        <img src="<?= $pigeon['photo_url'] ? e($pigeon['photo_url']) : '../images/pigeons/pigeon3.png' ?>"
                             alt="Youngster pigeon">
                         <div class="youngster-info-list">
                             <p><strong>Name:</strong> <?= e(orDash($pigeon['name'])) ?></p>
@@ -229,9 +229,9 @@
                             <p>C & G Koopman</p>
                             <small>Golden Wings</small>
                         </div>
-                        <img src="images/pigeons/pigeon1.png" alt="Male parent">
+                        <img src="../images/pigeons/pigeon1.png" alt="Male parent">
                         <b>×</b>
-                        <img src="images/pigeons/pigeon2.png" alt="Female parent">
+                        <img src="../images/pigeons/pigeon2.png" alt="Female parent">
                         <div>
                             <h3>Female ♀</h3>
                             <strong>NL22-8072203</strong>
@@ -298,12 +298,12 @@
                 <article class="youngster-panel quick-actions-profile">
                     <h2>Quick Actions</h2>
                     <div>
-                        <button type="button"><img src="images/dashboard-icon/add.png" alt="">Record Race
+                        <button type="button"><img src="../images/dashboard-icon/add.png" alt="">Record Race
                             Result</button>
-                        <button type="button"><img src="images/dashboard-icon/edit-green.png" alt="">Update
+                        <button type="button"><img src="../images/dashboard-icon/edit-green.png" alt="">Update
                             Details</button>
-                        <button type="button"><img src="images/dashboard-icon/add.png" alt="">Add Health Record</button>
-                        <button type="button"><img src="images/dashboard-icon/export.png" alt="">Export</button>
+                        <button type="button"><img src="../images/dashboard-icon/add.png" alt="">Add Health Record</button>
+                        <button type="button"><img src="../images/dashboard-icon/export.png" alt="">Export</button>
                     </div>
                 </article>
             </section>
