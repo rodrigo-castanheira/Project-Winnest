@@ -1,62 +1,60 @@
 <?php
     require __DIR__ . '/dbHandler.php';
+    session_start();
 
-    // The youngsters belong to the WINNEST LOFT (seeded as loft_id = 1).
-    $loftId = 1;
+    $currentUserId = $_SESSION['user_id'] ?? 1;
 
-    // List of all pigeons for the selector dropdown.
-    $list = $dbHandler->prepare(
-        "SELECT id, band_number FROM pigeon WHERE loft_id = :loft ORDER BY band_number"
-    );
+    // 1. Fetch all lofts for the user
+    $loftStmt = $dbHandler->prepare("SELECT id, loft_name, address, country FROM loft WHERE user_id = :user_id");
+    $loftStmt->execute([':user_id' => $currentUserId]);
+    $userLofts = $loftStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 2. Set Active Loft
+    $loftId = isset($_GET['loft_id']) ? (int) $_GET['loft_id'] : ($userLofts[0]['id'] ?? 2);
+    $currentLoft = array_filter($userLofts, fn($l) => $l['id'] == $loftId);
+    $currentLoft = !empty($currentLoft) ? reset($currentLoft) : null;
+
+    // 3. Fetch Youngsters for the SELECTED loft
+    $list = $dbHandler->prepare("SELECT id, band_number FROM pigeon WHERE loft_id = :loft AND is_youngster = 1 ORDER BY band_number");
     $list->execute([':loft' => $loftId]);
     $pigeons = $list->fetchAll(PDO::FETCH_ASSOC);
 
-    // Which pigeon is selected? Use ?id= from the URL, else the first one.
+    // 4. Set Active Pigeon (must belong to the active loft)
     $selectedId = isset($_GET['id']) ? (int) $_GET['id'] : ($pigeons[0]['id'] ?? null);
 
-    // Load the selected pigeon's full record.
+    // 5. Fetch full record with parents
     $pigeon = null;
     if ($selectedId !== null) {
-        $stmt = $dbHandler->prepare(
-            "SELECT * FROM pigeon WHERE id = :id AND loft_id = :loft"
-        );
+        $stmt = $dbHandler->prepare("
+            SELECT p.*, 
+                   sire.band_number AS sire_band, sire.color AS sire_color, sire.bloodline AS sire_bloodline,
+                   dam.band_number AS dam_band, dam.color AS dam_color, dam.bloodline AS dam_bloodline
+            FROM pigeon p
+            LEFT JOIN egg e ON p.hatched_from_egg_id = e.id
+            LEFT JOIN breeding_record br ON e.breeding_record_id = br.id
+            LEFT JOIN breeding_pair bp ON br.pair_id = bp.id
+            LEFT JOIN pigeon sire ON bp.sire_id = sire.id
+            LEFT JOIN pigeon dam ON bp.dam_id = dam.id
+            WHERE p.id = :id AND p.loft_id = :loft
+        ");
         $stmt->execute([':id' => $selectedId, ':loft' => $loftId]);
         $pigeon = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Display helpers.
-    $sexLabel  = ['Cock' => 'Male', 'Hen' => 'Female', 'Unknown' => 'Unknown'];
-    $sexSymbol = ['Cock' => '♂', 'Hen' => '♀', 'Unknown' => ''];
+    $genderOptions = ['Male', 'Female', 'Unknown'];
+    $allowedStatuses = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
 
-    // Escape output (the band number, name and notes are user input).
     function e($v) { return htmlspecialchars((string) ($v ?? ''), ENT_QUOTES, 'UTF-8'); }
-    // Show a dash for empty values.
     function orDash($v) { return ($v === null || $v === '') ? '—' : $v; }
-    // Format a Y-m-d date as e.g. "1 January 2025".
     function prettyDate($d) {
         if (!$d) return '—';
         $dt = DateTime::createFromFormat('Y-m-d', $d);
         return $dt ? $dt->format('j F Y') : $d;
     }
 
-    // Edit mode is on when ?edit= is present and a pigeon is loaded.
-    $editMode          = isset($_GET['edit']) && $pigeon !== null;
-
-    // Option lists for the edit form (same whitelists the handler enforces).
-    $genderOptions     = ['Male', 'Female', 'Unknown'];
-    $allowedColors     = ['Blue', 'Ash-Red', 'Black', 'Light Check', 'Dark Check'];
-    $allowedBloodlines = ['Koopman', 'Janssen', 'Heremans', 'Van den Bulck'];
-    $allowedStatuses   = ['OLR', 'Keep as breeder', 'For sale', 'Not healthy', 'Dead'];
-
-    // Build a <select> with $options, pre-selecting $current.
-    function selectField($name, $options, $current, $placeholder) {
-        $html = '<select name="' . e($name) . '"><option value="">' . e($placeholder) . '</option>';
-        foreach ($options as $opt) {
-            $html .= '<option' . ($opt === $current ? ' selected' : '') . '>' . e($opt) . '</option>';
-        }
-        return $html . '</select>';
-    }
+    $editMode = isset($_GET['edit']) && $pigeon !== null;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,20 +107,36 @@
         <main class="content youngster-profile-content">
             <section class="youngster-profile-header">
                 <h1>Youngster Profile</h1>
-                <div>
-                    <form method="get" class="youngster-selector">
-                        <select name="id">
+                
+                <div class="selectors-container">
+                    <form method="get" class="inline-form">
+                        <label>Loft:</label>
+                        <select name="loft_id" onchange="this.form.submit()">
+                            <?php foreach ($userLofts as $loft): ?>
+                                <option value="<?= e($loft['id']) ?>" <?= ($loftId == $loft['id'] ? 'selected' : '') ?>>
+                                    <?= e($loft['loft_name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </form>
+                    <form method="get" class="inline-form">
+                        <input type="hidden" name="loft_id" value="<?= e($loftId) ?>">
+                        <label>Youngster:</label>
+                        <select name="id" onchange="this.form.submit()">
                             <?php foreach ($pigeons as $p): ?>
                                 <option value="<?= e($p['id']) ?>" <?= ($p['id'] == $selectedId ? 'selected' : '') ?>>
                                     <?= e($p['band_number']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
-                        <button type="submit">View</button>
                     </form>
+                </div>
+
+                <div>
                     <?php if (!$editMode && $pigeon !== null): ?>
-                    <a class="youngster-edit-button" href="?id=<?= e($selectedId) ?>&edit=1"><img
-                            src="../images/dashboard-icon/edit.png" alt="">Edit Youngster</a>
+                        <a class="youngster-edit-button" href="?id=<?= e($selectedId) ?>&loft_id=<?= e($loftId) ?>&edit=1">
+                            <img src="../images/dashboard-icon/edit.png" alt="">Edit Youngster
+                        </a>
                     <?php endif; ?>
                     <button type="button" class="youngster-green-button"><img src="images/dashboard-icon/add.png"
                             alt="">Record Race Result</button>
@@ -148,16 +162,31 @@
                         <input id="edit-ring" type="text" name="ring_number" value="<?= e($pigeon['band_number']) ?>">
                         <label for="edit-name">Name</label>
                         <input id="edit-name" type="text" name="name" value="<?= e($pigeon['name']) ?>">
-                        <label>Gender</label>
-                        <?= selectField('gender', $genderOptions, $sexLabel[$pigeon['sex']] ?? 'Unknown', 'Select gender') ?>
-                        <label>Color</label>
-                        <?= selectField('color', $allowedColors, $pigeon['color'], 'Select color') ?>
+                        <label for="edit-gender">Gender</label>
+                        <select id="edit-gender" name="gender">
+                            <?php foreach ($genderOptions as $option): ?>
+                                <option value="<?= e($option) ?>" <?= ($pigeon['sex'] === $option ? 'selected' : '') ?>>
+                                    <?= e($option) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <<label for="edit-color">Color</label>
+                        <input id="edit-color" type="text" name="color" value="<?= e($pigeon['color']) ?>" placeholder="Enter color">
+
                         <label for="edit-date">Hatched Date</label>
                         <input id="edit-date" type="date" name="hatched_date" value="<?= e($pigeon['date_of_birth']) ?>">
-                        <label>Bloodline</label>
-                        <?= selectField('bloodline', $allowedBloodlines, $pigeon['bloodline'], 'Select bloodline') ?>
-                        <label>Status</label>
-                        <?= selectField('status', $allowedStatuses, $pigeon['status'], 'Select status') ?>
+
+                        <label for="edit-bloodline">Bloodline</label>
+                        <input id="edit-bloodline" type="text" name="bloodline" value="<?= e($pigeon['bloodline']) ?>" placeholder="Enter bloodline">
+                        <label for="edit-status">Status</label>
+                        <select id="edit-status" name="status">
+                            <option value="">Select status</option>
+                            <?php foreach ($allowedStatuses as $status): ?>
+                                <option value="<?= e($status) ?>" <?= ($pigeon['status'] === $status ? 'selected' : '') ?>>
+                                    <?= e($status) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
                         <label for="edit-note">Note</label>
                         <input id="edit-note" type="text" name="note" value="<?= e($pigeon['notes']) ?>">
                         <div class="youngster-edit-actions">
@@ -167,9 +196,10 @@
                     </form>
                     <?php else: ?>
                     <div class="youngster-title-row">
-                        <h2><?= e($pigeon['band_number']) ?> <?= $sexSymbol[$pigeon['sex']] ?? '' ?></h2>
+                        <h2><?= e($pigeon['band_number']) ?></h2> 
                         <span><?= e(orDash($pigeon['status'])) ?></span>
                     </div>
+                    <p><strong>Gender:</strong> <?= e(orDash($pigeon['sex'])) ?></p>
                     <div class="youngster-info-row">
                         <img src="<?= $pigeon['photo_url'] ? e($pigeon['photo_url']) : '../images/pigeons/pigeon3.png' ?>"
                             alt="Youngster pigeon">
@@ -190,27 +220,27 @@
                     <h2>Performance Snapshot</h2>
                     <div class="snapshot-grid">
                         <div>
-                            <h4>Races</h4><strong>8</strong>
+                            <h4>Races</h4><strong>0</strong>
                         </div>
                         <div>
-                            <h4>Top 10 Finises</h4><strong>8</strong>
+                            <h4>Top 10 Finises</h4><strong>0</strong>
                         </div>
                         <div>
-                            <h4>Win %</h4><strong>100%</strong>
+                            <h4>Win %</h4><strong>0%</strong>
                         </div>
                         <div>
-                            <h4>Avg. Position</h4><strong>12.4</strong>
+                            <h4>Avg. Position</h4><strong>0</strong>
                         </div>
                         <div>
-                            <h4>Total Points</h4><strong>880</strong>
+                            <h4>Total Points</h4><strong>0</strong>
                         </div>
                     </div>
                     <div class="snapshot-score">
                         <div>
                             <h4>Performance Score</h4>
-                            <strong>88.5 / 100</strong>
+                            <strong>0 / 100</strong>
                         </div>
-                        <span>Excellent</span>
+                        <span>Uknown</span>
                         <div class="small-score-circle"></div>
                     </div>
                 </article>
@@ -218,26 +248,23 @@
                 <article class="parents-info-card">
                     <div class="parents-title">
                         <h2>Parents Information</h2>
-                        <button type="button">View Pair Details</button>
                     </div>
-                    <span class="parent-pair-id">P-2026001</span>
+                    
                     <div class="parents-profile-row">
                         <div>
                             <h3>Male ♂</h3>
-                            <strong>NL24-2102319</strong>
-                            <p>Blue</p>
-                            <p>C & G Koopman</p>
-                            <small>Golden Wings</small>
+                            <strong><?= e($pigeon['sire_band'] ?? 'Unknown') ?></strong>
+                            <p><?= e($pigeon['sire_color'] ?? '—') ?></p>
+                            <p><?= e($pigeon['sire_bloodline'] ?? '—') ?></p>
                         </div>
-                        <img src="../images/pigeons/pigeon1.png" alt="Male parent">
+                        
                         <b>×</b>
-                        <img src="../images/pigeons/pigeon2.png" alt="Female parent">
+                        
                         <div>
                             <h3>Female ♀</h3>
-                            <strong>NL22-8072203</strong>
-                            <p>Blue</p>
-                            <p>C & G Koopman</p>
-                            <small>Diamond Wings</small>
+                            <strong><?= e($pigeon['dam_band'] ?? 'Unknown') ?></strong>
+                            <p><?= e($pigeon['dam_color'] ?? '—') ?></p>
+                            <p><?= e($pigeon['dam_bloodline'] ?? '—') ?></p>
                         </div>
                     </div>
                 </article>
@@ -265,16 +292,12 @@
 
                 <article class="youngster-panel timeline-card">
                     <h2>Timeline</h2>
-                    <div class="youngster-timeline-item"><small>1 May 2025</small><strong>Raced - Club Race #2 (50
-                            km)</strong></div>
-                    <div class="youngster-timeline-item"><small>1 April 2025</small><strong>Raced - Club Race #1 (30
-                            km)</strong></div>
-                    <div class="youngster-timeline-item"><small>1 February 2025</small><strong>Health treatment</strong>
+                    <div class="youngster-timeline-item"><small>Date</small><strong>Raced - Name & Distance</strong></div>
+                    <div class="youngster-timeline-item"><small>Date</small><strong>Raced - Name & Distance</strong></div>
+                    <div class="youngster-timeline-item"><small>Date</small><strong>Health treatment</strong>
                     </div>
-                    <div class="youngster-timeline-item"><small>1 February 2025</small><strong>Move to youngster loft -
-                            Vlieg Hok 1</strong></div>
-                    <div class="youngster-timeline-item"><small>15 January 2025</small><strong>Ringed</strong></div>
-                    <div class="youngster-timeline-item"><small>1 January 2025</small><strong>Hatched</strong></div>
+                    <div class="youngster-timeline-item"><small>Date</small><strong>Move to youngster loft</strong></div>
+                    <div class="youngster-timeline-item"><small>Date</small><strong>Ringed</strong></div>
                 </article>
 
                 <article class="youngster-panel health-records-card">

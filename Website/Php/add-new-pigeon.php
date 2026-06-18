@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/Php/dbHandler.php';
+require __DIR__ . '/dbHandler.php';
 
 function e($value) {
     return htmlspecialchars((string) ($value ?? ''), ENT_QUOTES, 'UTF-8');
@@ -21,12 +21,12 @@ function selectedOption($currentValue, $optionValue) {
 
 $loftId = 1;
 
+// FIXED: Updated to match your new database ENUM values ('Male' and 'Female')
 $genderMap = [
-    'Male' => 'Cock',
-    'Female' => 'Hen',
+    'Male' => 'Male',
+    'Female' => 'Female',
 ];
 
-$colors = ['Blue', 'Black', 'Red', 'Check'];
 $bloodlines = ['Koopman', 'Janssen', 'Heremans'];
 
 $fields = [
@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sex = $genderMap[$fields['gender']];
     }
 
-    if ($fields['color'] !== '' && !in_array($fields['color'], $colors, true)) {
-        $errors['color'] = 'Invalid color selected.';
+    if (empty(trim($fields['color']))) {
+        $errors['color'] = 'Color is required.';
     }
 
     if ($fields['bloodline'] !== '' && !in_array($fields['bloodline'], $bloodlines, true)) {
@@ -172,11 +172,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $notesForDatabase = !empty($noteParts) ? implode(PHP_EOL, $noteParts) : null;
 
         try {
+            // FIXED: Hardcoded '0' directly into the VALUES string for is_youngster
             $stmt = $dbHandler->prepare(
                 'INSERT INTO pigeon
                     (loft_id, band_number, sex, bloodline, color, status, is_youngster, photo_url, notes)
                  VALUES
-                    (:loft_id, :band_number, :sex, :bloodline, :color, :status, :is_youngster, :photo_url, :notes)'
+                    (:loft_id, :band_number, :sex, :bloodline, :color, :status, 0, :photo_url, :notes)'
             );
 
             $stmt->execute([
@@ -186,7 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':bloodline' => $fields['bloodline'] !== '' ? $fields['bloodline'] : null,
                 ':color' => $fields['color'] !== '' ? $fields['color'] : null,
                 ':status' => 'Active',
-                ':is_youngster' => 0,
                 ':photo_url' => $photoUrl,
                 ':notes' => $notesForDatabase,
             ]);
@@ -206,30 +206,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Breeding Pigeon | Winnest</title>
-    <link rel="stylesheet" href="./winnest-style.css">
+    <link rel="stylesheet" href="../winnest-style.css">
 </head>
 
 <body>
     <div class="layout">
         <aside class="sidebar">
             <div class="logo">
-                <img src="./images/winnest-logo.png" alt="Winnest logo">
+                <img src="../images/winnest-logo.png" alt="Winnest logo">
             </div>
             <nav class="menu">
-                <a href="dashboard.php" class="menu-item"><img src="images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
-                <a href="../pair-management.html" class="menu-item active"><img src="images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
-                <a href="../nest-management.html" class="menu-item"><img src="images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
-                <a href="youngster-profile.php" class="menu-item"><img src="images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
-                <a href="../health-records.html" class="menu-item"><img src="images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
-                <a href="../race-results.html" class="menu-item"><img src="images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
-                <a href="../analytics-dashboard.html" class="menu-item"><img src="images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
-                <a href="#" class="menu-item"><img src="images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
+                <a href="dashboard.php" class="menu-item"><img src="../images/menu-icon/dashboard.png" alt="Dashboard"><span>Dashboard</span></a>
+                <a href="../pair-management.html" class="menu-item active"><img src="../images/menu-icon/pair.png" alt="Pair Management"><span>Pair Management</span></a>
+                <a href="../nest-management.html" class="menu-item"><img src="../images/menu-icon/nest.png" alt="Nest Management"><span>Nest Management</span></a>
+                <a href="youngster-profile.php" class="menu-item"><img src="../images/menu-icon/youngster.png" alt="Youngsters"><span>Youngsters</span></a>
+                <a href="../health-records.html" class="menu-item"><img src="../images/menu-icon/health.png" alt="Health Records"><span>Health Records</span></a>
+                <a href="../race-results.html" class="menu-item"><img src="../images/menu-icon/race.png" alt="Race Results"><span>Race Results</span></a>
+                <a href="../analytics-dashboard.html" class="menu-item"><img src="../images/menu-icon/analytics.png" alt="Analytics"><span>Analytics</span></a>
+                <a href="#" class="menu-item"><img src="../images/menu-icon/report.png" alt="Reports"><span>Reports</span></a>
+                <a href="#" class="menu-item"><img src="../images/menu-icon/calendar.png" alt="Calendar"><span>Calendar</span></a>
+                <a href="#" class="menu-item"><img src="../images/menu-icon/setting.png" alt="Loft Settings"><span>Loft Settings</span></a>
+                <a href="#" class="menu-item"><img src="../images/menu-icon/users.png" alt="Users & Staff"><span>Users & Staff</span></a>
             </nav>
             <div class="loft-card">
-                <img src="images/pigeons/koopman-loft.png" alt="Winnest loft">
+                <img src="../images/pigeons/koopman-loft.png" alt="Winnest loft">
                 <h3>WINNEST LOFT 🇳🇱</h3>
                 <p>Ermerveen 17</p>
                 <p>7814 VB Emmen</p>
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <main class="content add-breeding-pigeon-content">
             <header class="add-breeding-pigeon-header">
-                <h1>Add New Breeding Pigeon</h1>
+                <h1>Add New Pigeon</h1>
             </header>
 
             <?php if ($success) { ?>
@@ -280,16 +280,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php } ?>
                             </div>
 
-                            <div class="breeding-field">
+                           <div class="breeding-field">
                                 <label for="color">Color</label>
-                                <select id="color" name="color" class="<?php echo isset($errors['color']) ? 'input-error' : ''; ?>">
-                                    <option value="">Select color</option>
-                                    <?php foreach ($colors as $color) { ?>
-                                    <option value="<?php echo e($color); ?>" <?php echo selectedOption($fields['color'], $color); ?>><?php echo e($color); ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input 
+                                    type="text" 
+                                    id="color" 
+                                    name="color" 
+                                    class="<?php echo isset($errors['color']) ? 'input-error' : ''; ?>" 
+                                    value="<?php echo e($fields['color'] ?? ''); ?>" 
+                                    placeholder="Enter pigeon color">
+                                
                                 <?php if (isset($errors['color'])) { ?>
-                                <span class="field-error"><?php echo e($errors['color']); ?></span>
+                                    <span class="field-error"><?php echo e($errors['color']); ?></span>
                                 <?php } ?>
                             </div>
                         </div>
@@ -358,7 +360,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="breeding-pigeon-actions">
                     <button type="button" class="breeding-cancel" onclick="window.location.href='pair-management.html';">Cancel</button>
                     <button type="submit" class="breeding-save">
-                        <img src="images/dashboard-icon/add.png" alt="">
+                        <img src="./images/dashboard-icon/add.png" alt="">
                         <span>Save</span>
                     </button>
                 </div>
