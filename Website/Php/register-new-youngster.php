@@ -1,19 +1,14 @@
 <?php
+
     require __DIR__ . '/dbHandler.php';
 
-    // The youngster belongs to the WINNEST LOFT (seeded as loft_id = 1).
-    $loftId = 1;
-
-    // Fetch ONLY the eggs belonging to this loft.
+    // Fetch ALL eggs, most recently laid first.
     $eggStmt = $dbHandler->prepare(
-        "SELECT e.id, e.egg_number
-           FROM egg e
-           JOIN breeding_record br ON e.breeding_record_id = br.id
-           JOIN breeding_pair bp ON br.pair_id = bp.id
-          WHERE bp.loft_id = :loft
-          ORDER BY e.id"
+        "SELECT id, egg_number, lay_date
+           FROM egg
+          ORDER BY lay_date DESC, id"
     );
-    $eggStmt->execute([':loft' => $loftId]);
+    $eggStmt->execute();
     $eggs = $eggStmt->fetchAll(PDO::FETCH_ASSOC);
 
     function e($v) { return htmlspecialchars((string) ($v ?? ''), ENT_QUOTES, 'UTF-8'); }
@@ -70,7 +65,7 @@
             <header>
                 <h1>Register New Youngster</h1>
             </header>
-            <form action="/Innovate-Test/Website/Php/register-youngster.php" method="POST">
+            <form action="register-youngster.php" method="POST">
                 <section class="form-grid">
                     <article class="card youngster-card">
                         <h3>Youngster Information</h3>
@@ -140,6 +135,9 @@
                                     <?php foreach ($eggs as $egg): ?>
                                         <option value="<?= e($egg['id']) ?>">
                                             <?= e($egg['egg_number'] !== null ? $egg['egg_number'] : 'Egg #' . $egg['id']) ?>
+                                            <?php if (!empty($egg['lay_date'])): ?>
+                                                — Laid <?= e(date('M j, Y', strtotime($egg['lay_date']))) ?>
+                                            <?php endif; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>

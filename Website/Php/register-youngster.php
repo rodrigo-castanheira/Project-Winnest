@@ -1,6 +1,13 @@
 <?php
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
     require __DIR__ . '/dbHandler.php';
+
+    // var_dump($_SERVER['REQUEST_METHOD']);
+    // var_dump($_POST);
+    // die();
 
     // Only handle form submissions
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -129,24 +136,31 @@
     }
 
     // INSERT statement explicitly including 'is_youngster' 
+    // INSERT statement explicitly including 'is_youngster' 
     $sql = "INSERT INTO pigeon
                 (loft_id, band_number, name, sex, bloodline, color, status, is_youngster, date_of_birth, notes, hatched_from_egg_id)
             VALUES
                 (:loft_id, :band_number, :name, :sex, :bloodline, :color, :status, 1, :dob, :notes, :egg_id)";
 
     $stmt = $dbHandler->prepare($sql);
-    $stmt->execute([
-        ':loft_id'     => $loftId,
-        ':band_number' => $bandNumber,
-        ':name'        => $name,
-        ':sex'         => $sex,
-        ':bloodline'   => $bloodline,
-        ':color'       => $color,
-        ':status'      => $status,
-        ':dob'         => $dob,
-        ':notes'       => $notes,
-        ':egg_id'      => $eggId,
-    ]);
+
+    try {
+        $stmt->execute([
+            ':loft_id'     => $loftId,
+            ':band_number' => strtoupper($bandNumber),
+            ':name'        => $name,
+            ':sex'         => $sex,
+            ':bloodline'   => $bloodline,
+            ':color'       => $color,
+            ':status'      => $status,
+            ':dob'         => $dob,
+            ':notes'       => $notes,
+            ':egg_id'      => $eggId
+        ]);
+    } catch (PDOException $e) {
+        header('Location: ../register-new-youngster.php?error=db_insert_failed');
+        exit;
+}
 
     header('Location: ../register-new-youngster.php?saved=1');
     exit;
