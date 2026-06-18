@@ -522,6 +522,38 @@ body {
     font-size: 10px;
 }
 
+.alert button {
+    width: 85px;
+    height: 22px;
+    font-size: 8px;
+    font-weight: 700;
+    background-color: #ffffff;
+}
+
+/* Low survival rate */
+.alert.red button {
+    color: #ff3b4f;
+    border: 1px solid #ff3b4f;
+}
+
+/* Missing ring numbers */
+.alert.orange button {
+    color: #ff9846;
+    border: 1px solid #ff9846;
+}
+
+/* Vaccination due */
+.alert.green button {
+    color: #3e993e;
+    border: 1px solid #3e993e;
+}
+
+/* Upcoming race */
+.alert.blue button {
+    color: #168cff;
+    border: 1px solid #168cff;
+}
+
 .red {
     background-color: #ffe6e8;
 }
@@ -3693,4 +3725,185 @@ button {
     align-items: center;
     height: 134px;
     border-bottom: 1px solid #e5f2fd;
+}
+
+/* ADD NEW BREEDING PIGEON */
+
+.add-breeding-pigeon-content {
+    padding: 0 22px 20px;
+}
+
+.add-breeding-pigeon-header {
+    display: flex;
+    align-items: center;
+    height: 134px;
+    border-bottom: 1px solid #e5f2fd;
+}
+
+.add-breeding-pigeon-form {
+    padding: 34px 0 0;
+}
+
+.breeding-pigeon-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 577px) minmax(0, 1fr);
+    gap: 17px;
+}
+
+.breeding-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    min-width: 0;
+}
+
+.breeding-pigeon-card {
+    border: 1px solid #e5f2fd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.pigeon-info-card {
+    min-height: 566px;
+    padding: 36px 21px 20px;
+}
+
+.parents-information-card {
+    min-height: 212px;
+    padding: 37px 28px 20px;
+}
+
+.breeding-photo-card {
+    min-height: 315px;
+    padding: 33px 44px 20px;
+}
+
+.breeding-pigeon-card h3 {
+    margin: 0 0 31px;
+    color: #183857;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.breeding-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.breeding-field label {
+    margin-bottom: 15px;
+    color: #183857;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.breeding-field input,
+.breeding-field select {
+    height: 51px;
+    margin-bottom: 0;
+    padding: 0 14px;
+    font-size: 16px;
+}
+
+.full-field {
+    margin-bottom: 22px;
+}
+
+.breeding-two-columns {
+    display: grid;
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 34px;
+    margin-bottom: 27px;
+}
+
+.bloodline-field {
+    width: 310px;
+    max-width: 100%;
+    margin-bottom: 44px;
+}
+
+.parent-information-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+}
+
+.breeding-upload-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 156px;
+    gap: 16px;
+    margin-top: 59px;
+}
+
+.breeding-upload-row input {
+    height: 43px;
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
+.breeding-upload-row button {
+    width: 156px;
+    height: 43px;
+    color: #168cff;
+    border: 1px solid #e5f2fd;
+    background-color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.breeding-photo-card p {
+    margin: 27px 0 0;
+    color: #a2a2a2;
+    font-size: 12px;
+}
+
+.breeding-pigeon-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 31px;
+}
+
+.breeding-cancel {
+    width: 132px;
+    height: 57px;
+    color: #183857;
+    border: 1px solid #e5f2fd;
+    background-color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.breeding-save {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 19px;
+    width: 170px;
+    height: 57px;
+    color: #3e993e;
+    border: 1px solid #3e993e;
+    background-color: #f0ffed;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.breeding-save img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+@media (max-width: 1100px) {
+    .breeding-pigeon-grid,
+    .breeding-two-columns,
+    .parent-information-grid,
+    .breeding-upload-row {
+        grid-template-columns: 1fr;
+    }
+
+    .breeding-upload-row button {
+        width: 100%;
+    }
 }

@@ -227,7 +227,8 @@
                         <a href="./add-race-result.php"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race
                                 Result</span></a>
                         <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Health Record</span></a>
-                        <a href="#"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Calendar</span></a>
+                        <a href="./add-race-result.html"><img src="../images/dashboard-icon/add.png" alt=""><span>Add Race
+                                Result</span></a>
                     </div>
                 </article>
             </section>
@@ -264,7 +265,7 @@
                     <div class="alert red">
                         <img src="../images/dashboard-icon/warning.png" alt="">
                         <p><strong>Low survival rate alert</strong><br>Pair 1 has a survival rate below 70%</p>
-                        <button>View Pair</button>
+                        <button class="alert-button">View Pair</button>
                     </div>
 
                     <div class="alert orange">
