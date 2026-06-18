@@ -1,14 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 04, 2026 at 08:10 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
-
-CREATE DATABASE IF NOT EXISTS `winnest_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `winnest_db`;
+-- Host: mysql
+-- Generation Time: Jun 18, 2026 at 08:30 PM
+-- Server version: 12.0.2-MariaDB-ubu2404
+-- PHP Version: 8.2.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,6 +37,13 @@ CREATE TABLE `breeding_pair` (
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `breeding_pair`
+--
+
+INSERT INTO `breeding_pair` (`id`, `loft_id`, `sire_id`, `dam_id`, `pairing_date`, `is_active`, `notes`) VALUES
+(1, 2, 1, 2, '2026-06-10', 1, 'All is good');
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +59,13 @@ CREATE TABLE `breeding_record` (
   `start_date` date DEFAULT NULL,
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `breeding_record`
+--
+
+INSERT INTO `breeding_record` (`id`, `pair_id`, `nest_id`, `breeding_round`, `season_name`, `start_date`, `notes`) VALUES
+(1, 1, 1, 'Round 1', NULL, '2026-06-15', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,6 +83,13 @@ CREATE TABLE `egg` (
   `status` varchar(50) DEFAULT 'Incubating',
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `egg`
+--
+
+INSERT INTO `egg` (`id`, `breeding_record_id`, `egg_number`, `lay_date`, `expected_hatch_date`, `actual_hatch_date`, `status`, `notes`) VALUES
+(1, 1, '1st Egg', '2026-06-15', '2026-07-03', NULL, 'Incubating', 'All good.');
 
 -- --------------------------------------------------------
 
@@ -102,6 +120,14 @@ CREATE TABLE `loft` (
   `country` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `loft`
+--
+
+INSERT INTO `loft` (`id`, `user_id`, `loft_name`, `address`, `country`) VALUES
+(1, 1, 'Sunrise Loft', '12 Pigeon Lane', 'Netherlands'),
+(2, 1, 'North Loft', '45 Dovecote Rd', 'Netherlands');
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +141,18 @@ CREATE TABLE `nest` (
   `status` varchar(50) DEFAULT 'available'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nest`
+--
+
+INSERT INTO `nest` (`id`, `loft_id`, `nest_number`, `status`) VALUES
+(1, 1, 'N-01', 'available'),
+(2, 1, 'N-02', 'available'),
+(3, 1, 'N-03', 'available'),
+(4, 2, 'N-01', 'available'),
+(5, 2, 'N-02', 'available'),
+(6, 2, 'N-03', 'available');
+
 -- --------------------------------------------------------
 
 --
@@ -127,15 +165,24 @@ CREATE TABLE `pigeon` (
   `hatched_from_egg_id` int(11) DEFAULT NULL,
   `band_number` varchar(100) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `sex` enum('Cock','Hen','Unknown') DEFAULT 'Unknown',
+  `sex` enum('Male','Female','Unknown') NOT NULL DEFAULT 'Unknown',
   `bloodline` varchar(255) DEFAULT NULL,
   `color` varchar(100) DEFAULT NULL,
   `status` varchar(50) DEFAULT 'Active',
-  `is_youngster` tinyint(1) NOT NULL DEFAULT 1,
+  `is_youngster` tinyint(1) NOT NULL DEFAULT 0,
   `date_of_birth` date DEFAULT NULL,
   `photo_url` varchar(512) DEFAULT NULL,
   `notes` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pigeon`
+--
+
+INSERT INTO `pigeon` (`id`, `loft_id`, `hatched_from_egg_id`, `band_number`, `name`, `sex`, `bloodline`, `color`, `status`, `is_youngster`, `date_of_birth`, `photo_url`, `notes`) VALUES
+(1, 2, NULL, 'NL 36823847', 'Blue', 'Male', 'Koopman', 'Blue (Blauw)', 'Active', 0, NULL, NULL, NULL),
+(2, 2, NULL, 'NL 3680906', 'Pink', 'Female', 'Koopman', 'Black (Donker)', 'Active', 0, NULL, NULL, NULL),
+(3, 2, 1, 'NL-3284-3297', 'Blink', 'Male', 'Koopman', 'Black', 'Keep as breeder', 1, '2026-06-17', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -171,6 +218,13 @@ CREATE TABLE `user` (
   `role` varchar(50) DEFAULT 'owner',
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `full_name`, `email`, `role`, `created_at`) VALUES
+(1, 'John Doe', 'john@example.com', 'owner', '2026-06-18 12:10:59');
 
 --
 -- Indexes for dumped tables
@@ -251,19 +305,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `breeding_pair`
 --
 ALTER TABLE `breeding_pair`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `breeding_record`
 --
 ALTER TABLE `breeding_record`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `egg`
 --
 ALTER TABLE `egg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `health_record`
@@ -275,19 +329,19 @@ ALTER TABLE `health_record`
 -- AUTO_INCREMENT for table `loft`
 --
 ALTER TABLE `loft`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `nest`
 --
 ALTER TABLE `nest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pigeon`
 --
 ALTER TABLE `pigeon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `race_performance`
@@ -299,7 +353,7 @@ ALTER TABLE `race_performance`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
